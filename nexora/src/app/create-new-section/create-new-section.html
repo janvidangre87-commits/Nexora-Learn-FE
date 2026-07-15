@@ -1,0 +1,38 @@
+<div class="module-box">
+  <div class="module">
+    <span>> Module 1: Topic Name</span>
+    <div style="display: flex; gap: 8px;">
+      <mat-icon>videocam</mat-icon>
+      <mat-icon>quiz</mat-icon>
+      <mat-icon>delete</mat-icon>
+    </div>
+  </div>
+  <div>
+    <div class="module">
+      <div>
+        <mat-icon>videocam</mat-icon>
+        <span>Lectures</span>
+      </div>
+      <div>
+        <button type="button" class="btn btn-outline-dark" (click)="addLecture()">Add Lecture</button>
+      </div>
+    </div>
+   @if (!isShowContent) {
+        <div class="pdf-content">
+          <p>{{ pdfName }}</p>
+        </div>
+      }
+  </div>      
+  
+  <div class="module">
+    <div class="module-icon">
+      <mat-icon>quiz</mat-icon>
+      <span>Quzis</span>
+    </div>
+    <div style="display: flex; gap: 8px; ">
+      <button type="button" class="btn btn-outline-dark"> Create Quzis</button>
+      <button type="button" class="btn btn-outline-dark"> Import Quzis</button>
+    </div>
+
+  </div>
+</div>

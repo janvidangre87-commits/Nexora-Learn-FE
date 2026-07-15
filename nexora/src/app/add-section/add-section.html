@@ -1,0 +1,105 @@
+@if(!isModule){
+<div class="container">
+    <div class="block">
+    <label class="block-lable"> Title : </label>
+    <input type="text" placeholder="New Course">
+  </div>
+
+  <div class="bolck">
+    <label class="block-lable"> Discription: </label>
+    <div class="discription-box">
+      <div class="discription-tool">
+        <button type="button"class="btn btn-light" mat-icon-button(click)="execCmd('undo')">
+          <mat-icon class="icon">undo</mat-icon>
+        </button>
+
+        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('redo')">
+          <mat-icon class="icon">redo</mat-icon>
+        </button>
+
+        <span class="divider"></span>
+
+        <button mat-button type="button" class="select">
+          Normal text
+          <mat-icon>expand_more</mat-icon>
+        </button>
+
+        <span class="divider"></span>
+
+        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('insertUnorderedList')">
+          <mat-icon class="icon">format_list_bulleted</mat-icon>
+        </button>
+
+        <button type="button" class="btn btn-light" mat-icon-button (click)="text('bold')">
+          <mat-icon class="icon">format_bold</mat-icon>
+        </button>
+
+        <button type="button" class="btn btn-light" mat-icon-button (click)="text('italic')">
+          <mat-icon class="icon">format_italic</mat-icon>
+        </button>
+
+        <button type="button" class="btn btn-light" mat-icon-button (click)="text('underline')">
+          <mat-icon class="icon">format_underlined</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button>
+          <mat-icon class="icon">code</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button>
+          <mat-icon class="icon">link</mat-icon>
+        </button>
+
+        <button type="button" class="btn btn-light" mat-icon-button>
+          <mat-icon class="icon">image</mat-icon>
+        </button>
+
+        <button type="button" class="btn btn-light" mat-icon-button>
+          <mat-icon class="icon">data_object</mat-icon>
+        </button>
+        <!-- <button type="button" class="btn btn-light" mat-icon-button>
+          <mat-icon class="icon">format_quote</mat-icon>
+        </button> -->
+        <button type="button" class="btn btn-light" mat-icon-button>
+          <mat-icon class="icon">remove</mat-icon>
+        </button>
+      </div>
+
+      <div #editorArea contenteditable="true" class="text-area"></div>
+
+    </div>
+  </div>
+  <div style="display: flex; justify-content: center; margin-top: 25px;">
+    <button class="btn new-section-btn" type="button" (click)="module()">Create new section and move futher</button>
+  </div>
+</div>
+}
+@else {
+
+<!-- <div class="module-box">
+  <div class="module">
+    <span>> Module 1: Topic Name</span>
+    <div style="display: flex; gap: 8px;">
+      <mat-icon>videocam</mat-icon>
+      <mat-icon>quiz</mat-icon>
+      <mat-icon>delete</mat-icon>
+    </div>
+  </div>
+  <div class="module">
+    <div>
+      <mat-icon>videocam</mat-icon>
+      <span>Lectures</span>
+    </div>
+    <button type="button" class="btn btn-outline-dark" (click)="addLecture()">Add Lecture</button>
+  </div>
+  <div class="module">
+    <div class="module-icon">
+      <mat-icon>quiz</mat-icon>
+      <span>Quzis</span>
+    </div>
+    <div style="display: flex; gap: 8px; ">
+      <button type="button" class="btn btn-outline-dark"> Create Quzis</button>
+      <button type="button" class="btn btn-outline-dark"> Import Quzis</button>
+    </div>
+
+  </div>
+</div> -->
+}

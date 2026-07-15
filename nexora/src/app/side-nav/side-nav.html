@@ -1,0 +1,42 @@
+<aside class="sidenav-wrapper" [class.expanded]="expanded" [class.collapsed]="!expanded" (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()">
+
+<div class="sidebar">
+
+    <div class="sidebar-logo">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOBCTnUgi-EUREJMe3NGXr8WBC_-q6BMlWK6bVoG_OXg&s=10" alt="" class="sidebar_logo-icon">
+        <span class="sidebar_logo-text">Nexora</span>
+    </div>
+
+    <div class="sidebar-nav">
+        @for (link of navlist; track $index) {
+            @if (!link.children) {
+
+                <div>
+                    <a class="sidebar_link">
+                        <mat-icon>{{link.icon}}</mat-icon>
+                        <span>{{link.label}}</span>
+                    </a>
+                </div>
+            }
+            @if(link.children){
+                 <div>
+                    <a class="sidebar_link" (click)="toogle(link)">
+                        <mat-icon>{{link.icon}}</mat-icon>
+                        <span>{{link.label}}</span>
+                        <mat-icon >expand_more</mat-icon>
+                    </a>
+
+                    @if (link.expanded) {
+                        <div class="sidebar_submenu">
+                            @for (sublink of link.children; track $index) {
+                                <a class="sidebar_sublink" [routerLink]="sublink.route"> <span>{{sublink.label}}</span></a>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>
+</aside>
