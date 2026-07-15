@@ -1,0 +1,11 @@
+<div class="layout" [class.side-expand]="isExpand">
+
+    <app-side-nav (hoverChange)="isExpand = $event"></app-side-nav>
+
+    <app-header></app-header>
+
+    <div class="content">
+
+        <router-outlet></router-outlet>
+    </div>
+</div>

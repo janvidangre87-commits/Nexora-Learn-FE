@@ -1,0 +1,38 @@
+.layout{
+    height: 100vh;
+}
+
+app-side-nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 4.5rem;
+    height: 100vh;
+    z-index: 1000;
+    transition: width 0.3s ease;
+}
+
+.layout.sidebar-expanded app-side-nav {
+  width: 15rem;
+}
+
+app-header{
+    position: fixed;
+    top: 0;
+    // left: 14rem;
+    width: 100%;
+    height: 64px;
+    z-index: 1100;
+    transition: all 0.3s ease;
+}
+
+.content {
+  position: absolute;
+  top: 64px;
+  left: 4.5rem;
+  width: calc(100% - 4.5rem);
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  padding: 12px;
+  transition: all 0.3s ease;
+}
