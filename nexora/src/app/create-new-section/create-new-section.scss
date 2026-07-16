@@ -28,15 +28,19 @@ $border-bg: gray;
 .btn{
     border-radius: 25px;
 }
+.show-lecture{
+    margin-left: 15px;
+    label{
+        margin-bottom: 5px;
+    }
+}
 .pdf-content{
-    margin-left: 15px;
-}
-.pdf-name{
-    margin-left: 15px;
-    padding-top:9px; 
-    padding-left: 5px;
-    width: 200px;
     border: 2px solid $border-bg;
-    border-radius: 10px;
+    border-radius: 8px;
+    width: 25%;
+    text-align: center;
+    padding: 5px;
+    
 }
+
 

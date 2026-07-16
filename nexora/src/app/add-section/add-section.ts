@@ -43,7 +43,7 @@ export class AddSectionComponent {
     execCmd(command: string, value?: string): void {
     this.editorArea.nativeElement.focus();
     document.execCommand(command, false, value);
-  }
+    }
 
     module(){
       this.isModule=true

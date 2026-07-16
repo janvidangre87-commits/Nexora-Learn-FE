@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ChapterData, ChapterList, ClassData, Topic } from '../model/course';
+import { ChapterData, ChapterList, ClassData, Question, Topic } from '../model/course';
 
 @Injectable({
   providedIn: 'root'
@@ -120,6 +120,31 @@ export class CourseService {
     }
   ];
 
+   private questions: Question[] = [
+    {
+      id: 1,
+      type: 'mcq',
+      questionText: 'What is the SI unit of Force?',
+      options: ['Newton', 'Joule', 'Watt', 'Pascal'],
+      correctAnswer: 'Newton'
+    },
+    {
+      id: 2,
+      type: 'description',
+      questionText: 'Explain Newton\'s Third Law of Motion with an example.'
+    },
+    {
+      id: 3,
+      type: 'true-false',
+      questionText: 'The acceleration due to gravity on Earth is 9.8 m/s².',
+      correctAnswer: true
+    }
+  ];
+
+  getQuestions(): Question[] {
+    return this.questions;
+  }
+
 
    getAllClasses(): ClassData[] {
     return this.allData;
@@ -158,16 +183,18 @@ export class CourseService {
     }, []);
   }
 
+  setShowContent(value:boolean){
+    this.showContent=value;
+  }
   getShowContent(): boolean {
     return this.showContent;
   }
-  setContent(condition: boolean, data: string |null) {
-    this.showContent = condition;
+  setContent( data: string |null) {
     this.contentData = data ?? '';
   }
   getContentData(): string {          
   return this.contentData;
-}
+  } 
   
 }
 

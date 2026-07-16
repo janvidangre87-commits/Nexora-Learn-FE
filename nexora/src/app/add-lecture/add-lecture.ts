@@ -131,7 +131,8 @@ export class AddLectureComponent {
     }
   }
   onAdd(){
-    this.courseService.setContent(this.isClick,this.pdf?? '')
+    this.courseService.setShowContent(true);  
+    this.courseService.setContent(this.pdf?? '')
     this.router.navigate(['layout/create/create-new-section'])
   }
 

@@ -1,4 +1,3 @@
-@if(!isModule){
 <div class="container">
     <div class="block">
     <label class="block-lable"> Title : </label>
@@ -55,9 +54,9 @@
         <button type="button" class="btn btn-light" mat-icon-button>
           <mat-icon class="icon">data_object</mat-icon>
         </button>
-        <!-- <button type="button" class="btn btn-light" mat-icon-button>
+        <button type="button" class="btn btn-light" mat-icon-button>
           <mat-icon class="icon">format_quote</mat-icon>
-        </button> -->
+        </button>
         <button type="button" class="btn btn-light" mat-icon-button>
           <mat-icon class="icon">remove</mat-icon>
         </button>
@@ -67,9 +66,80 @@
 
     </div>
   </div>
-  <div style="display: flex; justify-content: center; margin-top: 25px;">
-    <button class="btn new-section-btn" type="button" (click)="module()">Create new section and move futher</button>
+  <div class="btn-ok">
+    <button class="btn btn-outline-dark" type="button">Cancle</button>
+
+    <button class="btn new-section-btn-ok" type="button">Ok</button>
+  </div>
+
+  <div>
+    <h4>Select Type</h4>
+    <form class="form-selected">
+      <mat-form-field class="full-width">
+        <input type="text" aria-label="Number"
+              matInput
+              [formControl]="myControl"
+              [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          @for (option of filteredOptions | async; track option) {
+            <mat-option class="option" [value]="option">{{option}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="divider1"></div>
+
+  <div class="que-container">
+    <div class="que-left">
+        <ul class="question-list">
+        @for (question of questions; track question; let i = $index) {
+          <li class="question-item">
+            <span class="que-number">{{ i + 1 }}.</span>
+            <span class="que-text">Question</span>
+          </li>
+        }
+      </ul>
+    </div>
+    <div class="divider2"></div>
+    <div class="que-right">
+        <h4>Questions</h4>
+        <div class="input-text">
+          <input type="text" placeholder="type your Question">
+        </div>
+        <div class="input-discription">
+          <input type="text" placeholder="Discription">
+        </div>
+        @if (!selectedQue) {
+        <div class="que-option"> 
+          <mat-checkbox></mat-checkbox>
+        </div>
+        <div class="que-option"> 
+          <mat-checkbox></mat-checkbox>
+        </div>
+        <div class="que-option"> 
+          <mat-checkbox></mat-checkbox>
+        </div>
+        <div class="que-option"> 
+          <mat-checkbox></mat-checkbox>
+        </div>
+      }
+
+        <div class="input-discription">
+          <input type="text" placeholder="Discription">
+        </div>
+
+
+        <div class="btn-box">
+          <div class="checkbox">
+            <span>Upload to question set</span>
+            <input type="checkbox">
+          </div>
+          <div>
+            <button type="button" class="btn btn-box-add">ADD</button>
+          </div>
+          
+        </div>
+    </div>
   </div>
 </div>
-}
-

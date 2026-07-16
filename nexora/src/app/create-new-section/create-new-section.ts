@@ -21,6 +21,10 @@ export class CreateNewSection implements OnInit{
 
    
   addLecture(){
-      this.router.navigate(['layout/create/add-lecture'])
+    this.router.navigate(['layout/create/add-lecture'])
+  }
+
+  onQuziClick(){
+    this.router.navigate(['layout/create/create-quiz'])
   }
 }

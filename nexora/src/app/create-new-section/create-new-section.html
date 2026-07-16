@@ -17,11 +17,14 @@
         <button type="button" class="btn btn-outline-dark" (click)="addLecture()">Add Lecture</button>
       </div>
     </div>
-   @if (!isShowContent) {
+   @if (isShowContent) {
+      <div class="show-lecture">
+        <label>Notes</label>
         <div class="pdf-content">
           <p>{{ pdfName }}</p>
         </div>
-      }
+      </div>
+    }
   </div>      
   
   <div class="module">
@@ -30,7 +33,7 @@
       <span>Quzis</span>
     </div>
     <div style="display: flex; gap: 8px; ">
-      <button type="button" class="btn btn-outline-dark"> Create Quzis</button>
+      <button type="button" class="btn btn-outline-dark" (click)="onQuziClick()"> Create Quzis</button>
       <button type="button" class="btn btn-outline-dark"> Import Quzis</button>
     </div>
 
