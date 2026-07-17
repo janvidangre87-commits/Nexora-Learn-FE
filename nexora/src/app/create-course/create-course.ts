@@ -7,12 +7,15 @@ import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 
 
 @Component({
   selector: 'app-create-course',
   standalone: true,
   imports: [
+    FormsModule,
     CommonModule,
     MatIconModule,
     MatFormFieldModule,
@@ -27,6 +30,16 @@ import { Router, RouterOutlet } from '@angular/router';
 })
 export class CreateCourseComponent {
   @ViewChild('editorArea') editorArea!: ElementRef<HTMLDivElement>;
+    courseData = {
+    title: '',
+    description: '',
+    difficulty: '',
+    authorName: '',
+    authorEmail: '',
+    visibility: '',
+    pricing: '',
+    category: ''
+  };
   thumbnail :string|null=null;
   video:string | null = null;
   isClick:boolean=false;

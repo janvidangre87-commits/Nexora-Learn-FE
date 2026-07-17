@@ -10,10 +10,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CourseService } from '../service/course.service';
 import { Question } from '../model/course';
 import { MatCheckbox } from "@angular/material/checkbox";
+import { MatRadioButton } from '@angular/material/radio';
 
 @Component({
   selector: 'app-create-quiz',
-  imports: [MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatCheckbox],
+  imports: [MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatRadioButton, MatCheckbox],
   templateUrl: './create-quiz.html',
   styleUrl: './create-quiz.scss',
 })
@@ -23,6 +24,11 @@ export class CreateQuiz implements OnInit{
   filteredOptions: Observable<string[]>;
   questions:Question[]=[];
   selectedQue:Question[]|null=null;
+
+  selectedType: string = 'MCQ';  
+  currentOptions: string[] = ['', '', '', ''];   
+  correctAnswer: any = null;
+
   constructor(private course:CourseService ) {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith('MCQ'),
@@ -31,7 +37,20 @@ export class CreateQuiz implements OnInit{
   }
   ngOnInit(): void {
     this.questions=this.course.getQuestions();
+     this.myControl.valueChanges.subscribe(value => {
+    if (this.options.includes(value ?? '')) {
+      this.selectedType = value as string;
+      this.resetFields();
+    }
+  });
   }
+
+  resetFields() {
+  this.currentOptions = ['', '', '', ''];
+  this.correctAnswer = null;
+  }
+
+  
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -62,5 +81,62 @@ export class CreateQuiz implements OnInit{
     document.execCommand(command, false, value);
   }
 
+
+  addQuestion() {
+  let newQuestion: Question;
+    
+  switch (this.selectedType) {
+    case 'MCQ':
+      newQuestion = {
+        id: this.questions.length + 1,
+        type: 'mcq',
+        questionText: '',
+        options: ['', '', '', '']
+      };
+      break;
+
+    case 'True/False':
+      newQuestion = {
+        id: this.questions.length + 1,
+        type: 'true-false',
+        questionText: '',
+        correctAnswer: undefined
+      };
+      break;
+
+    case 'Numerical':
+      newQuestion = {
+        id: this.questions.length + 1,
+        type: 'numerical',
+        questionText: '',
+        correctAnswer: undefined
+      };
+      break;
+
+    case 'Short Answer':
+      newQuestion = {
+        id: this.questions.length + 1,
+        type: 'short-answer',
+        questionText: '',
+        correctAnswer: ''
+      };
+      break;
+
+    case 'Fill in the blancks':
+      newQuestion = {
+        id: this.questions.length + 1,
+        type: 'fill-blanks',
+        questionText: '',
+        correctAnswer: ''
+      };
+      break;
+
+    default:
+      return;
+  }
+
+  this.questions.push(newQuestion);
+  this.selectedQue = [newQuestion];
+}
   module() {}
 }

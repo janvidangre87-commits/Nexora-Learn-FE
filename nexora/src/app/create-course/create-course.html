@@ -5,6 +5,7 @@
 }
 @else {
 <div class="create-course-page">
+    
     <div class="create-course-body">
         <div class="left">
              <div class="heading">
@@ -14,12 +15,13 @@
             </div>
             <div class="block">
                 <label class="block-lable"> Title : </label>
-                <input type="text" placeholder="New Course">
+                <input type="text" placeholder="New Course" >
             </div>
 
             <div class="bolck">
                 <label class="block-lable"> Discription: </label>
                 <div class="discription-box">
+                    
                     <div class="discription-tool">
                         
                         <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('undo')">
@@ -59,9 +61,9 @@
                             <mat-icon class="icon">format_underlined</mat-icon>
                         </button>
 
-                        <!-- <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('formatBlock', 'blockquote')">
+                        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('formatBlock', 'blockquote')">
                             <mat-icon class="icon">format_quote</mat-icon>
-                        </button> -->
+                        </button>
                         <button type="button" class="btn btn-light" mat-icon-button (click)="text('code')">
                             <mat-icon class="icon">code</mat-icon>
                         </button>
@@ -83,9 +85,7 @@
                         </button>
                     
                     </div>
-                    
-                    <!-- <textarea #editorArea contenteditable="true" class="text-area"></textarea> -->
-                     <div #editorArea contenteditable="true" class="text-area"></div>
+                    <div #editorArea contenteditable="true" class="text-area"></div>
                 </div>
             </div>
             <div class="block">
@@ -232,7 +232,7 @@
                 </select>
                 </div>
             </div>
-        </div>      
+        </div>    
     </div>
 </div>
 }

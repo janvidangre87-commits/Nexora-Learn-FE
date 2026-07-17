@@ -18,6 +18,7 @@ import { ChapterData, ChapterList, ClassData } from '../model/course';
 })
 export class AddLectureComponent {
   @ViewChild('editorArea') editorArea!: ElementRef<HTMLDivElement>;
+  title:string =''
   thumbnail :string|null=null;
   video:string | null = null;
   pdf: string|null=null;

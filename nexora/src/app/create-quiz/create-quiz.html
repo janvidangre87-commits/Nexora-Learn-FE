@@ -92,7 +92,7 @@
 
   <div class="que-container">
     <div class="que-left">
-        <ul class="question-list">
+      <ul class="question-list">
         @for (question of questions; track question; let i = $index) {
           <li class="question-item">
             <span class="que-number">{{ i + 1 }}.</span>
@@ -105,38 +105,54 @@
     <div class="que-right">
         <h4>Questions</h4>
         <div class="input-text">
-          <input type="text" placeholder="type your Question">
+          <input type="text" placeholder="type your Question" required>
         </div>
-        <div class="input-discription">
+       
+         <div class="input-discription">
           <input type="text" placeholder="Discription">
         </div>
-        @if (!selectedQue) {
-        <div class="que-option"> 
-          <mat-checkbox></mat-checkbox>
-        </div>
-        <div class="que-option"> 
-          <mat-checkbox></mat-checkbox>
-        </div>
-        <div class="que-option"> 
-          <mat-checkbox></mat-checkbox>
-        </div>
-        <div class="que-option"> 
-          <mat-checkbox></mat-checkbox>
-        </div>
-      }
+          @if (selectedType === 'MCQ') {
+            <div class="mcq-fields">   
+              @for (opt of currentOptions; track $index; let i = $index) {
+                <mat-checkbox></mat-checkbox>
+                <input type="text" [(ngModel)]="currentOptions[i]" [placeholder]="'Option ' + (i + 1)">
+              }
+            </div>
+             <div class="input-discription">
+                <input type="text" placeholder="Discription">
+              </div>
+          }
 
-        <div class="input-discription">
-          <input type="text" placeholder="Discription">
-        </div>
+          @if (selectedType === 'True/False') {
+            <mat-radio-group class="radio-field" [(ngModel)]="correctAnswer" required>
+              <mat-radio-button class="radio-field-button" [value]="true">True</mat-radio-button>
+              <mat-radio-button class="radio-field-button" [value]="false">False</mat-radio-button>
+            </mat-radio-group>
+            <div class="input-discription">
+              <input type="text" placeholder="Discription">
+            </div>
+          }
 
+          @if (selectedType === 'Numerical') {
+            <label class="block-lable">Numerical Answer</label>
+            <input type="number" class="ans-input" [(ngModel)]="correctAnswer" placeholder="Enter numerical answer" required>
+          }
+          @if (selectedType === 'Short Answer') {
+            <label class="block-lable">Short Answer</label>
+            <input type="text" class="ans-input" [(ngModel)]="correctAnswer" placeholder="Enter short answer" required>
+          }
+          @if (selectedType === 'Fill in the blancks') {
+            <label class="block-lable">Answer Fill in the blancks</label>
+            <input type="text" class="ans-input" [(ngModel)]="correctAnswer" placeholder="Enter blank answer"required>
+          }
 
         <div class="btn-box">
           <div class="checkbox">
             <span>Upload to question set</span>
-            <input type="checkbox">
+            <mat-checkbox></mat-checkbox>
           </div>
           <div>
-            <button type="button" class="btn btn-box-add">ADD</button>
+            <button type="button" class="btn btn-box-add" (click)="addQuestion()">ADD</button>
           </div>
           
         </div>

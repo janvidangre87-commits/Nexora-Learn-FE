@@ -54,10 +54,10 @@ $border-bg: gray;
     
 }
 .block-lable{
+    margin: 15px;
     display: flex;
     font-size: 20px;
     font-weight: 500;
-    margin-bottom: 5px;
 }
 
 .discription-box{
@@ -65,6 +65,7 @@ $border-bg: gray;
     border: 2px solid $border-bg;
     border-radius: 8px;
     overflow: hidden;
+    
 }
 
 .discription-tool{

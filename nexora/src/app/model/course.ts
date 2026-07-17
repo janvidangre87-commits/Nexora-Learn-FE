@@ -18,7 +18,7 @@ export interface ClassData {
 
 export interface Question {
   id: number;
-  type: 'mcq' | 'description' | 'true-false';
+  type: 'mcq' | 'description' | 'true-false'|'numerical' | 'fill-blanks' | 'short-answer';
   questionText: string;
   options?: string[];      
   correctAnswer?: string | boolean;
