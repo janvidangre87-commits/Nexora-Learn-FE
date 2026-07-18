@@ -6,7 +6,8 @@
 @else {
 <div class="create-course-page">
     
-    <div class="create-course-body">
+    <form #courseForm="ngForm" class="create-course-body" (ngSubmit)="next()">
+
         <div class="left">
              <div class="heading">
                 <span class="root-text">Course</span>
@@ -15,78 +16,84 @@
             </div>
             <div class="block">
                 <label class="block-lable"> Title : </label>
-                <input type="text" placeholder="New Course" >
+                <input type="text" placeholder="New Course" name="title" [(ngModel)]="courseData.title" required>
+                <mat-error *ngIf="courseForm.controls['title']?.invalid && courseForm.controls['title']?.touched">Title is required</mat-error>
             </div>
 
             <div class="bolck">
                 <label class="block-lable"> Discription: </label>
-                <div class="discription-box">
-                    
-                    <div class="discription-tool">
-                        
-                        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('undo')">
- 
-                            <mat-icon class="icon">undo</mat-icon>
-                        </button>                        
-                        
-                        <button type="button" class="btn btn-light" mat-icon-button  (click)="execCmd('redo')">
-
-                            <mat-icon class="icon">redo</mat-icon>
-                        </button>    
-                    
-            
-                        <span class="divider"></span>
-            
-                        <button mat-button type="button" class="select">
-                        Normal text
-                            <mat-icon>expand_more</mat-icon>
-                        </button>
-            
-                        <span class="divider"></span>
-            
-                        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('insertUnorderedList')">
-
-                            <mat-icon class="icon">format_list_bulleted</mat-icon>
-                        </button>
-
-                        <button type="button" class="btn btn-light" mat-icon-button (click)="text('bold')">
-                            <mat-icon class="icon">format_bold</mat-icon>
-                        </button>
-                            
-                        <button type="button" class="btn btn-light" mat-icon-button (click)="text('italic')">
-                           <mat-icon class="icon">format_italic</mat-icon>
-                        </button>
-                        
-                        <button type="button" class="btn btn-light" mat-icon-button (click)="text('underline')">
-                            <mat-icon class="icon">format_underlined</mat-icon>
-                        </button>
-
-                        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('formatBlock', 'blockquote')">
-                            <mat-icon class="icon">format_quote</mat-icon>
-                        </button>
-                        <button type="button" class="btn btn-light" mat-icon-button (click)="text('code')">
-                            <mat-icon class="icon">code</mat-icon>
-                        </button>
-                        <button type="button" class="btn btn-light" mat-icon-button (click)="text('url')">
-                            <mat-icon class="icon">link</mat-icon>
-                        </button>
-
-                        <button type="button" class="btn btn-light" mat-icon-button (click)="text('image')">
-                            <input type="file" style="display: none;" (change)='onFileSelect($event)'#fileInput >
-                            <mat-icon class="icon" (click)="fileInput.click()">image</mat-icon>
-                        </button>
-                        
-                        <button type="button" class="btn btn-light" mat-icon-button >
-                            <mat-icon class="icon">data_object</mat-icon>
-                        </button>
-                      
-                        <button type="button" class="btn btn-light" mat-icon-button (click)="text('remove')">
-                            <mat-icon class="icon">remove</mat-icon>
-                        </button>
-                    
-                    </div>
-                    <div #editorArea contenteditable="true" class="text-area"></div>
-                </div>
+               <div class="discription-box">
+      <div class="discription-tool">
+        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('undo')">
+          <mat-icon class="icon">undo</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('redo')">
+          <mat-icon class="icon">redo</mat-icon>
+        </button>
+        <span class="divider"></span>
+        <button mat-button type="button" class="select">
+          Normal text
+          <mat-icon>expand_more</mat-icon>
+        </button>
+        <span class="divider"></span>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertUnorderedList')"
+        >
+          <mat-icon class="icon">format_list_bulleted</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="text('bold')">
+          <mat-icon class="icon">format_bold</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="text('italic')">
+          <mat-icon class="icon">format_italic</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="text('underline')">
+          <mat-icon class="icon">format_underlined</mat-icon>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('formatBlock', 'pre')"
+        >
+          <mat-icon class="icon">code</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="insertLink()">
+          <mat-icon class="icon">link</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="insertImage()">
+          <mat-icon class="icon">image</mat-icon>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertText', '&#123;&#125;')"
+        >
+          <mat-icon class="icon">data_object</mat-icon>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('formatBlock', 'blockquote')"
+        >
+          <mat-icon class="icon">format_quote</mat-icon>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertHorizontalRule')"
+        >
+          <mat-icon class="icon">remove</mat-icon>
+        </button>
+      </div>
+      <div #editorArea contenteditable="true" class="text-area"></div>
+    </div>
             </div>
             <div class="block">
                 <div class="block-lable"> Options </div>
@@ -101,8 +108,7 @@
                     <label > Difficulty level</label>
                     <div class="option">
                         <select name="" id="">
-                            <option value="" selected>All levels</option>
-                            <option value="">Easy</option>
+                            <option value="" selected>Easy</option>
                             <option value="">Mediun</option>
                             <option value="">Hard</option>
                             
@@ -119,7 +125,7 @@
                 </div>
             </div>
             <div>
-                <button type="button" class="btn btn-light next" (click)="next()"> Next</button>
+                <button type="button" class="btn btn-light next" [disabled]="!courseForm.valid" (click)="next()"> Next</button>
             </div>
         </div>
 
@@ -204,16 +210,17 @@
 
             <div class="block">
                 <label class="block-lable"> Pricing Model </label>
-                <mat-radio-group aria-label="Select an option">
+                <mat-radio-group aria-label="Select an option" name="pricing" [(ngModel)]="courseData.pricing" required>
                     <mat-radio-button value="free">Free</mat-radio-button>
                     <mat-radio-button value="paid">Paid</mat-radio-button>
                 </mat-radio-group>
+                <mat-error *ngIf="courseForm.controls['pricing']?.invalid && courseForm.controls['pricing']?.touched">Pricing Model is required</mat-error>
             </div>
             
              <div class="block">
                 <label  class="block-lable"> Cateogry </label>
                 <div class="option">
-                    <select>
+                    <select >
                     <option value="">Public</option>
                     <option value="">Password Protected</option>
 
@@ -233,7 +240,8 @@
                 </div>
             </div>
         </div>    
-    </div>
+    <!-- </div> -->
+    </form>
 </div>
 }
 

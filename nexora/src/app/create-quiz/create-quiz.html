@@ -1,69 +1,82 @@
 <div class="container">
-    <div class="block">
+  <div class="block">
     <label class="block-lable"> Title : </label>
-    <input type="text" placeholder="New Course">
+    <input type="text" placeholder="New Course" />
   </div>
 
   <div class="bolck">
     <label class="block-lable"> Discription: </label>
     <div class="discription-box">
       <div class="discription-tool">
-        <button type="button"class="btn btn-light" mat-icon-button(click)="execCmd('undo')">
+        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('undo')">
           <mat-icon class="icon">undo</mat-icon>
         </button>
-
         <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('redo')">
           <mat-icon class="icon">redo</mat-icon>
         </button>
-
         <span class="divider"></span>
-
         <button mat-button type="button" class="select">
           Normal text
           <mat-icon>expand_more</mat-icon>
         </button>
-
         <span class="divider"></span>
-
-        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('insertUnorderedList')">
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertUnorderedList')"
+        >
           <mat-icon class="icon">format_list_bulleted</mat-icon>
         </button>
-
         <button type="button" class="btn btn-light" mat-icon-button (click)="text('bold')">
           <mat-icon class="icon">format_bold</mat-icon>
         </button>
-
         <button type="button" class="btn btn-light" mat-icon-button (click)="text('italic')">
           <mat-icon class="icon">format_italic</mat-icon>
         </button>
-
         <button type="button" class="btn btn-light" mat-icon-button (click)="text('underline')">
           <mat-icon class="icon">format_underlined</mat-icon>
         </button>
-        <button type="button" class="btn btn-light" mat-icon-button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('formatBlock', 'pre')"
+        >
           <mat-icon class="icon">code</mat-icon>
         </button>
-        <button type="button" class="btn btn-light" mat-icon-button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="insertLink()">
           <mat-icon class="icon">link</mat-icon>
         </button>
-
-        <button type="button" class="btn btn-light" mat-icon-button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="insertImage()">
           <mat-icon class="icon">image</mat-icon>
         </button>
-
-        <button type="button" class="btn btn-light" mat-icon-button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertText', '&#123;&#125;')"
+        >
           <mat-icon class="icon">data_object</mat-icon>
         </button>
-        <button type="button" class="btn btn-light" mat-icon-button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('formatBlock', 'blockquote')"
+        >
           <mat-icon class="icon">format_quote</mat-icon>
         </button>
-        <button type="button" class="btn btn-light" mat-icon-button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertHorizontalRule')"
+        >
           <mat-icon class="icon">remove</mat-icon>
         </button>
       </div>
-
       <div #editorArea contenteditable="true" class="text-area"></div>
-
     </div>
   </div>
   <div class="btn-ok">
@@ -76,13 +89,16 @@
     <h4>Select Type</h4>
     <form class="form-selected">
       <mat-form-field class="full-width">
-        <input type="text" aria-label="Number"
-              matInput
-              [formControl]="myControl"
-              [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <input
+          type="text"
+          aria-label="Number"
+          matInput
+          [formControl]="myControl"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           @for (option of filteredOptions | async; track option) {
-            <mat-option class="option" [value]="option">{{option}}</mat-option>
+            <mat-option class="option" [value]="option">{{ option }}</mat-option>
           }
         </mat-autocomplete>
       </mat-form-field>
@@ -103,59 +119,145 @@
     </div>
     <div class="divider2"></div>
     <div class="que-right">
-        <h4>Questions</h4>
-        <div class="input-text">
-          <input type="text" placeholder="type your Question" required>
-        </div>
-       
-         <div class="input-discription">
-          <input type="text" placeholder="Discription">
-        </div>
-          @if (selectedType === 'MCQ') {
-            <div class="mcq-fields">   
-              @for (opt of currentOptions; track $index; let i = $index) {
-                <mat-checkbox></mat-checkbox>
-                <input type="text" [(ngModel)]="currentOptions[i]" [placeholder]="'Option ' + (i + 1)">
-              }
-            </div>
-             <div class="input-discription">
-                <input type="text" placeholder="Discription">
-              </div>
-          }
-
-          @if (selectedType === 'True/False') {
-            <mat-radio-group class="radio-field" [(ngModel)]="correctAnswer" required>
-              <mat-radio-button class="radio-field-button" [value]="true">True</mat-radio-button>
-              <mat-radio-button class="radio-field-button" [value]="false">False</mat-radio-button>
-            </mat-radio-group>
-            <div class="input-discription">
-              <input type="text" placeholder="Discription">
+      <h4>Questions</h4>
+      <div class="input-text">
+        <input type="text" placeholder="type your Question" required />
+      </div>
+      <div class="input-discription">
+        <input type="text" placeholder="Discription" />
+      </div>
+      @if (selectedType === 'MCQ') {
+        <div class="mcq-fields">
+          @for (opt of currentOptions; track $index; let i = $index) {
+            <div class="mcq-fields-option">
+              <mat-radio-button></mat-radio-button>
+              <input
+                type="text"
+                [(ngModel)]="currentOptions[i]"
+                [placeholder]="'Option ' + (i + 1)"
+              />
             </div>
           }
-
-          @if (selectedType === 'Numerical') {
-            <label class="block-lable">Numerical Answer</label>
-            <input type="number" class="ans-input" [(ngModel)]="correctAnswer" placeholder="Enter numerical answer" required>
-          }
-          @if (selectedType === 'Short Answer') {
-            <label class="block-lable">Short Answer</label>
-            <input type="text" class="ans-input" [(ngModel)]="correctAnswer" placeholder="Enter short answer" required>
-          }
-          @if (selectedType === 'Fill in the blancks') {
-            <label class="block-lable">Answer Fill in the blancks</label>
-            <input type="text" class="ans-input" [(ngModel)]="correctAnswer" placeholder="Enter blank answer"required>
-          }
-
-        <div class="btn-box">
-          <div class="checkbox">
-            <span>Upload to question set</span>
-            <mat-checkbox></mat-checkbox>
-          </div>
-          <div>
-            <button type="button" class="btn btn-box-add" (click)="addQuestion()">ADD</button>
-          </div>
-          
         </div>
+        <div class="input-discription">
+          <input type="text" placeholder="Discription" />
+        </div>
+      }
+
+      @if (selectedType === 'True/False') {
+        <mat-radio-group class="radio-field" [(ngModel)]="correctAnswer" required>
+          <mat-radio-button class="radio-field-button" [value]="true">True</mat-radio-button>
+          <mat-radio-button class="radio-field-button" [value]="false">False</mat-radio-button>
+        </mat-radio-group>
+        <div class="input-discription">
+          <input type="text" placeholder="Discription" />
+        </div>
+      }
+
+      @if (selectedType === 'Numerical') {
+        <label class="block-lable">Numerical Answer</label>
+        <input
+          type="number"
+          class="ans-input"
+          [(ngModel)]="correctAnswer"
+          placeholder="Enter numerical answer"
+          required
+        />
+      }
+      @if (selectedType === 'Short Answer') {
+        <label class="block-lable">Short Answer</label>
+        <input
+          type="text"
+          class="ans-input"
+          [(ngModel)]="correctAnswer"
+          placeholder="Enter short answer"
+          required
+        />
+      }
+      @if (selectedType === 'Fill in the blancks') {
+        <label class="block-lable">Answer Fill in the blancks</label>
+        <input
+          type="text"
+          class="ans-input"
+          [(ngModel)]="correctAnswer"
+          placeholder="Enter blank answer"
+          required
+        />
+      }
+
+      <div class="btn-box">
+        <div class="checkbox">
+          <span>Upload to question set</span>
+          <mat-checkbox (change)="onChecked($event)" name="uploadCheckbox"></mat-checkbox>
+        </div>
+        <div>
+          <button type="button" class="btn btn-box-add" (click)="addQuestion()">ADD</button>
+        </div>
+      </div>
+      @if (uploadToQuestionSet) {
+        <div class="imports-1">
+          <div class="select-import">
+            <div><p>Class</p></div>
+            <div class="select-import-block">
+              <select [(ngModel)]="selectedClass" (change)="onClassChange()">
+                <option value="" selected disabled>select class</option>
+                @for (item of allData; track item.className) {
+                  <option [value]="item.className">Class {{ item.className }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="select-import">
+            <div><p>Subject</p></div>
+            <div class="select-import-block">
+              <select
+                [(ngModel)]="selectedSubject"
+                (change)="onSubjectChange()"
+                [disabled]="!selectedClass"
+              >
+                <option value="" selected disabled>select subject</option>
+                @for (sub of availableSubjects; track sub.subject) {
+                  <option [value]="sub.subject">{{ sub.subject }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="select-import">
+            <div><p>Chapter</p></div>
+            <div class="select-import-block">
+              <select
+                [(ngModel)]="selectedChapter"
+                (change)="onChapterChange()"
+                [disabled]="!selectedSubject"
+              >
+                <option value="" selected disabled>select chapter</option>
+                @for (ch of availableChapters; track ch.chapterName) {
+                  <option [value]="ch.chapterName">{{ ch.chapterName }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="select-import">
+            <div><p>Year</p></div>
+            <div class="select-import-block">
+              <select>
+                <option value="" selected>year</option>
+                <option value="">2025</option>
+                <option value="">2025</option>
+                <option value="">2025</option>
+                <option value="">2025</option>
+                <option value="">2025</option>
+                <option value="">2025</option>
+                <option value="">2025</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="btn btn-upload" (click)="onUpload()">Upload</div>
+      }
     </div>
   </div>
 </div>

@@ -8,9 +8,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CourseService } from '../service/course.service';
-import { Question } from '../model/course';
-import { MatCheckbox } from "@angular/material/checkbox";
+import { ChapterData, ChapterList, ClassData, Question, Topic } from '../model/course';
+import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox";
 import { MatRadioButton } from '@angular/material/radio';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-quiz',
@@ -20,7 +21,7 @@ import { MatRadioButton } from '@angular/material/radio';
 })
 export class CreateQuiz implements OnInit{
   myControl = new FormControl('MCQ');
-  options: string[] = ['MCQ', 'True/False', 'Numerical','Short Answer','Fill in the blancks','Discriptive'];
+  options: string[] = ['MCQ', 'True/False', 'Numerical','Short Answer','Fill in the blancks'];
   filteredOptions: Observable<string[]>;
   questions:Question[]=[];
   selectedQue:Question[]|null=null;
@@ -28,15 +29,17 @@ export class CreateQuiz implements OnInit{
   selectedType: string = 'MCQ';  
   currentOptions: string[] = ['', '', '', ''];   
   correctAnswer: any = null;
+  uploadToQuestionSet: boolean = false;
 
-  constructor(private course:CourseService ) {
+  constructor(private courseService:CourseService, private router:Router ) {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith('MCQ'),
       map((value) => this._filter(value || '')),
     );
   }
   ngOnInit(): void {
-    this.questions=this.course.getQuestions();
+    this.allData = this.courseService.getAllClasses();  
+    this.questions=this.courseService.getQuestions();
      this.myControl.valueChanges.subscribe(value => {
     if (this.options.includes(value ?? '')) {
       this.selectedType = value as string;
@@ -57,8 +60,7 @@ export class CreateQuiz implements OnInit{
 
     return this.options.filter((option) => option.toLowerCase().includes(filterValue));
   }
-  @ViewChild('editorArea') editorArea!: ElementRef<HTMLTextAreaElement>;
-
+ @ViewChild('editorArea') editorArea!: ElementRef<any>;
   text(type: string) {
     const tool = this.editorArea.nativeElement;
     tool.focus();
@@ -67,7 +69,7 @@ export class CreateQuiz implements OnInit{
         tool.style.fontWeight = tool.style.fontWeight === 'bold' ? 'normal' : 'bold';
         break;
       case 'italic':
-        tool.style.fontStyle = tool.style.fontStyle === 'italic' ? 'Inter' : 'italic';
+        tool.style.fontStyle = tool.style.fontStyle === 'italic' ? 'normal' : 'italic'; 
         break;
       case 'underline':
         tool.style.textDecorationLine =
@@ -75,10 +77,21 @@ export class CreateQuiz implements OnInit{
         break;
     }
   }
-
   execCmd(command: string, value?: string): void {
     this.editorArea.nativeElement.focus();
     document.execCommand(command, false, value);
+  }
+  insertLink() {
+    const url = prompt('Enter the URL:', 'https://');
+    if (url) {
+      this.execCmd('createLink', url);
+    }
+  }
+  insertImage() {
+    const url = prompt('Enter the image URL:');
+    if (url) {
+      this.execCmd('insertImage', url);
+    }
   }
 
 
@@ -137,6 +150,50 @@ export class CreateQuiz implements OnInit{
 
   this.questions.push(newQuestion);
   this.selectedQue = [newQuestion];
-}
-  module() {}
+  }
+  onChecked(event: MatCheckboxChange) {
+    console.log('Checked:', event.checked);
+    this.uploadToQuestionSet = event.checked;
+  }
+
+
+  allData: ClassData[] = [];
+    
+  
+  selectedClass: string = '';
+  selectedSubject: string = '';
+  selectedChapter: string = '';
+  selectedTopics:string = '';
+  selectedTopicContent: string = '';
+  isChecked: boolean = false;
+    
+  availableSubjects: ChapterList[] = [];
+  availableChapters: ChapterData[] = [];
+  availableTopics: Topic[]=[]
+    
+  onClassChange() {
+    this.availableSubjects = this.courseService.getSubjectsByClass(this.selectedClass);
+    this.selectedSubject = '';
+    this.selectedChapter = '';
+    this.selectedTopics='';
+    this.availableChapters = [];
+    this.availableTopics=[];
+  }
+    
+    onSubjectChange() {
+      this.availableChapters = this.courseService.getChaptersBySubject(this.availableSubjects, this.selectedSubject);
+      this.selectedChapter = '';
+      this.selectedTopics='';
+      this.availableTopics=[];  
+      this.availableTopics = [];
+    }
+  
+    onChapterChange(){
+       this.availableTopics = this.courseService.getTopicsByChapter(this.availableChapters, this.selectedChapter);         this.selectedTopics = '';
+    }
+  
+    onUpload(){
+      this.router.navigate(['layout/create/create-new-section'])
+    }
+
 }

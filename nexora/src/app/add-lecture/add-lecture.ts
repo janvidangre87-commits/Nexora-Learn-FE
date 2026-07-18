@@ -18,7 +18,7 @@ import { ChapterData, ChapterList, ClassData } from '../model/course';
 })
 export class AddLectureComponent {
   @ViewChild('editorArea') editorArea!: ElementRef<HTMLDivElement>;
-  title:string =''
+
   thumbnail :string|null=null;
   video:string | null = null;
   pdf: string|null=null;
@@ -42,25 +42,38 @@ export class AddLectureComponent {
   }
   
 
-  text(type:string){
-    const tool=this.editorArea.nativeElement;
+  text(type: string) {
+    const tool = this.editorArea.nativeElement;
     tool.focus();
-    switch(type){
+    switch (type) {
       case 'bold':
-        tool.style.fontWeight= tool.style.fontWeight=== 'bold' ? 'normal' :'bold';
+        tool.style.fontWeight = tool.style.fontWeight === 'bold' ? 'normal' : 'bold';
         break;
       case 'italic':
-        tool.style.fontStyle= tool.style.fontStyle=== 'italic'? 'Inter' :'italic';
+        tool.style.fontStyle = tool.style.fontStyle === 'italic' ? 'normal' : 'italic'; 
         break;
       case 'underline':
-        tool.style.textDecorationLine= tool.style.textDecorationLine==='underline'? 'none':'underline'
+        tool.style.textDecorationLine =
+          tool.style.textDecorationLine === 'underline' ? 'none' : 'underline';
         break;
     }
   }
   execCmd(command: string, value?: string): void {
     this.editorArea.nativeElement.focus();
     document.execCommand(command, false, value);
-  } 
+  }
+  insertLink() {
+    const url = prompt('Enter the URL:', 'https://');
+    if (url) {
+      this.execCmd('createLink', url);
+    }
+  }
+  insertImage() {
+    const url = prompt('Enter the image URL:');
+    if (url) {
+      this.execCmd('insertImage', url);
+    }
+  }
 
 
   onFileSelect(event: Event): void {
@@ -161,5 +174,8 @@ export class AddLectureComponent {
   next() {
     console.log("next clicked");
     this.router.navigate(['layout/create/import-notes']);
+  }
+  onAddlecture(){
+    this.router.navigate(['layout/create/create-new-section'])
   }
 }

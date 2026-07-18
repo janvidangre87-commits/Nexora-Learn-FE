@@ -160,6 +160,7 @@ $border-bg: gray;
     &-add{
         background-color: $btn-color;
     }
+    
 }
 .checkbox{
     display: flex;
@@ -190,6 +191,11 @@ $border-bg: gray;
         width: 100%;
         padding: 10px;
     }
+    &-option{
+        display: flex;
+        gap: 10px;
+        margin: 15px;
+    }
 }
 
 .radio-field{
@@ -202,4 +208,25 @@ $border-bg: gray;
         border-radius: 8px;
         background-color: white;
     }
+}
+
+.imports-1{
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    gap: 3rem;
+}
+.select-import{
+    display: flex !important;
+    flex-direction: column !important;
+    &-block select{
+        width: 150px;
+        height: 35px;
+        border: 2px solid $border-bg;
+        border-radius: 8px;
+    }
+}
+.btn-upload{
+    background-color:$btn-color;
+    border: 1px solid $border-bg;
 }
