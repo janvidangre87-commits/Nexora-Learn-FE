@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -11,11 +11,14 @@ import { CourseService } from '../service/course.service';
 import { ChapterData, ChapterList, ClassData, Question, Topic } from '../model/course';
 import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox";
 import { MatRadioButton } from '@angular/material/radio';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 import { Router } from '@angular/router';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-create-quiz',
-  imports: [MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatRadioButton, MatCheckbox],
+  imports: [MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatRadioButton, MatCheckbox,MatExpansionModule,MatSlideToggleModule],
   templateUrl: './create-quiz.html',
   styleUrl: './create-quiz.scss',
 })
@@ -30,6 +33,9 @@ export class CreateQuiz implements OnInit{
   currentOptions: string[] = ['', '', '', ''];   
   correctAnswer: any = null;
   uploadToQuestionSet: boolean = false;
+  isSetting:boolean=false;
+
+  readonly panelOpenState = signal(false);
 
   constructor(private courseService:CourseService, private router:Router ) {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -46,6 +52,10 @@ export class CreateQuiz implements OnInit{
       this.resetFields();
     }
   });
+  }
+
+  onSetting(){
+    this.isSetting=true
   }
 
   resetFields() {

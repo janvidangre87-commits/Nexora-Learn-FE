@@ -39,6 +39,9 @@ export class CreateCourseComponent {
   thumbnail :string|null=null;
   video:string | null = null;
   isClick:boolean=false;
+  isSchedule:boolean=false;
+  plan:string=''
+  pricingOffer=['One time pricing only','Subscription only', 'subscription and one time purchase','Membership only']
   activeFormats = {
     bold: false,
     italic: false,
@@ -130,8 +133,7 @@ export class CreateCourseComponent {
     this.video = null;
     this.video = null;
   }
-
-
+ 
 
   next(){
     this.isClick=true;

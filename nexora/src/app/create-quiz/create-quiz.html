@@ -1,4 +1,8 @@
 <div class="container">
+  @if (!isSetting) {
+  <div>
+     <button type="button" class="btn setting-btn" (click)="onSetting()">Setting</button>
+  </div>
   <div class="block">
     <label class="block-lable"> Title : </label>
     <input type="text" placeholder="New Course" />
@@ -260,4 +264,138 @@
       }
     </div>
   </div>
+}
+@else {
+  <div class="block">
+    <div>
+      <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Basic Setting </mat-panel-title>
+        </mat-expansion-panel-header>
+          <div class="basic">
+            <label class="basic-lable">Condition</label>
+            <div class="basic-row-1">
+              <div >
+                <span class="basic-lable">Answer Requried : </span>
+                <mat-slide-toggle name="isSchedule" ></mat-slide-toggle>
+              </div>
+              <div class="basic-row-1-inner" >
+                <span class="basic-lable">Point for this question : </span>
+                <input type="number" name="" id="">
+              </div>
+              <div class="basic-row-1-inner">
+                <span class="basic-lable">Disply Points : </span>
+                <mat-slide-toggle name="isSchedule" ></mat-slide-toggle>
+              </div>
+            </div>
+            <hr>
+            <div class="basic-row-2">
+              <div>
+                <span class="basic-lable"> Time Limit :</span>
+                <input type="time" name="" id="">
+              </div>
+              <div class="basic-row-2-inner">
+                <span class="basic-lable">Hide Quiz Time : </span>
+                <mat-slide-toggle name="isSchedule" ></mat-slide-toggle>
+              </div>
+            </div>
+            <hr>
+            <div>
+              <label class="basic-lable">Feedback Mode</label>
+              <br>
+              <select name="" id="" class="basic-select">
+                <option value="" selected>Default</option>
+                <option value="">Advance </option>
+              </select>
+            </div>
+            <hr>
+            <div class="basic-number">
+              <label class="basic-lable">Passing Grade</label>
+              <input type="number">
+            </div>
+            <hr>
+            <div class="basic-number">
+              <label class="basic-lable">Maximum Question Allowed to Answer</label>
+              <input type="number">
+            </div>
+            <hr>
+            <div class="basic-btn">
+              <button type="button" class="btn btn-outline-dark">Cancle</button>
+              <button type="button" class="btn btn-danger">ok</button>
+            </div>
+          </div>
+       
+      </mat-expansion-panel>
+    </div>
+    <br>
+     <div>
+      <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Advance Setting </mat-panel-title>
+        </mat-expansion-panel-header>
+        
+         <div class="advance">
+          <div class="advance-row-1">
+            <span class="basic-lable">Quiz Auto Start : </span>
+            <mat-slide-toggle name="isSchedule" ></mat-slide-toggle>
+          </div>
+          <hr>
+          <div>
+            <label class="basic-lable"> Question Layout</label>
+            <div>
+              <select class="basic-select"> 
+                <option value="">Single Question</option>
+                <option value="">Multiple Question</option>
+              </select>
+               <select class="basic-select"> 
+                <option value="">Random Question</option>
+                <option value="">sequence Question</option>
+              </select>
+            </div>
+            <hr>
+            <div>
+              <span class="basic-lable">Hide Question Number  : </span>
+              <mat-slide-toggle name="isSchedule" ></mat-slide-toggle>
+            </div>
+            <hr>
+            <div class="advance-row-4">
+
+              <div class="advance-row-4-data">
+                <label class="basic-lable"> Set Charater Limit for short Answer</label>
+                <select name="" id="" class="basic-select">
+                  <option value="">50</option>
+                  <option value="">100</option>
+                  <option value="">150</option>
+                  <option value="">200</option>
+                </select>
+              </div>
+              <div class="advance-row-4-data">
+                <label class="basic-lable"> Set Charater Limit for Open-Ended/Eassy Answer</label>
+                <select name="" id="" class="basic-select">
+                  <option value="">50</option>
+                  <option value="">100</option>
+                  <option value="">150</option>
+                  <option value="">200</option>
+                </select>
+              </div>
+            </div>
+            <hr>
+            <div class="basic-btn">
+              <button type="button" class="btn btn-outline-dark">Cancle</button>
+              <button type="button" class="btn btn-danger">ok</button>
+            </div>
+          </div>
+        </div>
+        
+      </mat-expansion-panel>
+    </div>
+
+    <div class="setting-btn-inner">
+      <button type="button" class="btn btn-outline-dark"> Cancle </button>
+      <button type="button" class="btn btn-danger"> Save </button>
+
+    </div>
+    
+  </div>
+}
 </div>

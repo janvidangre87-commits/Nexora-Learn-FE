@@ -1,15 +1,17 @@
 $btn-color:#D2F55B;
 $color-bg: #ffff;
 $border-bg: gray;
+$color-block:rgb(239, 234, 229);
+
 .module-box{
     border: 2px solid $border-bg;
     border-radius: 8px;
-    margin-top: 10rem;
-    margin-left: 20rem;
+    margin-top: 5rem;
+    margin-left: 10rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 50%;
+    width: 80%;
     background: $color-bg;
 }
 .new-section-btn{
@@ -21,8 +23,7 @@ $border-bg: gray;
     font-size: 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    // border-bottom: 1px solid $border-bg;   
+    justify-content: space-between; 
 }
 
 .btn{
@@ -34,6 +35,7 @@ $border-bg: gray;
         margin-bottom: 5px;
     }
     &-content{
+        background-color: $color-block;
         border: 2px solid $border-bg;
         border-radius: 8px;
         width: 80%;
@@ -42,6 +44,7 @@ $border-bg: gray;
     }
 }
 .pdf-content{
+    background-color: $color-block;
     border: 2px solid $border-bg;
     border-radius: 8px;
     width: 25%;

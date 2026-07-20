@@ -4,6 +4,16 @@ $border-bg: gray;
 .container{
     padding-top: 10px;
 }
+.setting-btn{
+    float: right;
+    background-color: $btn-color;
+    &-inner{
+        display: flex;
+        gap: 35px;
+        margin-top: 5rem;
+        float: right;
+    }
+}
 .block{ 
     input{
         height: 45px;
@@ -230,3 +240,77 @@ $border-bg: gray;
     background-color:$btn-color;
     border: 1px solid $border-bg;
 }
+.basic-btn{
+    display: flex;
+    gap: 35px;
+    margin-top: 2rem;
+    float: right;
+}
+.basic{
+    border-top: 2px dashed $border-bg;
+    padding: 25px;
+    &-row-1{
+        margin: 15px;
+        display: flex;
+        align-items: center;
+        
+        &-inner{
+            margin-left: 5rem;
+            input{
+                width: 35%;
+            }
+        }
+    }
+
+    &-row-2{
+        display: flex;
+        align-items: center;
+        &-inner{
+            margin-left: 5rem;
+            
+        }
+    }
+    &-select{
+        margin-left: 15px;
+        padding: 10px;
+        width: 30%;
+        border: 2px solid $border-bg;
+        border-radius: 8px;
+        background-color: $color-bg;
+        input{
+            margin-left: 15px;
+            width: 30%;
+        }
+    }
+    &-lable{
+        font-size: 15px;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    &-number{
+        display: flex;
+        flex-direction: column;
+        input{
+            width: 25%;
+        }
+    }
+}
+
+.advance{
+    border-top: 2px dashed $border-bg;
+    padding: 25px;
+    &-row-1{
+        margin-top: 15px;
+
+    }
+    &-row-4{
+        margin-top: 15px;
+        &-data{
+            display: flex;
+            flex-direction: column;
+
+        }
+    }
+
+}
+
