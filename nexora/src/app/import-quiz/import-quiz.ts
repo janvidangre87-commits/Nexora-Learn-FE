@@ -3,12 +3,13 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-import-quiz',
   imports: [
     
-    CommonModule,
+   CommonModule,
     FormsModule,
     MatCheckbox,
     MatIcon
@@ -17,6 +18,9 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './import-quiz.scss',
 })
 export class ImportQuiz {
+  constructor(private router: Router) {}
+  selectedQuestions: any[] = [];
+
   isContinue = false;
 
   continue() {
@@ -229,6 +233,22 @@ openPopup(question: any) {
 closePopup() {
   this.showPopup = false;
 }
+
+
+toggleSelect(question: any, event: any) {
+    if (event.checked) {
+      this.selectedQuestions.push({ ...question, type: this.selectedType });
+    } else {
+      this.selectedQuestions = this.selectedQuestions.filter(q => q !== question);
+    }
+  }
+
+  addSelectedQuestions() {
+    this.router.navigate(['layout/create/create-new-section'], {
+      state: { questions: this.selectedQuestions }
+    });
+  }
+
 
 
 }

@@ -28,6 +28,7 @@
     margin-top: 100px;
     margin-left: 50px;
     margin-right: 50px;
+    
 }
 
 
@@ -69,10 +70,10 @@ button:hover {
     background: #fff;
     padding: 30px;
     border-radius: 10px;
-
     margin-top: 100px;
     margin-left: 50px;
     margin-right: 50px;
+   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);;
 }
 
 .question-box {
@@ -102,14 +103,12 @@ button:hover {
 
 
 .icons {
+    
     display: flex;
     align-items: center;
     gap: 10px;
     justify-self: end;
-    // white-space: nowrap;
     justify-content: end;
-    
-
 }
 
 

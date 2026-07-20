@@ -115,7 +115,7 @@
 
         <div class="question-box">
 
-            <mat-checkbox></mat-checkbox>
+            <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
 
             <div class="question">
 
@@ -133,7 +133,7 @@
 
 
                     <div class="icons">
-                        <small>Marks:[{{ question.marks }}]</small>
+                        <span>Marks:[{{ question.marks }}]</span>
                         <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
                         <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
 
@@ -152,7 +152,7 @@
 
         <div class="question-box">
 
-            <mat-checkbox></mat-checkbox>
+            <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
 
             <div class="question">
 
@@ -191,7 +191,7 @@
         @for (question of numericalQuestions; track question; let i = $index) {
 
         <div class="question-box">
-            <mat-checkbox></mat-checkbox>
+            <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
 
 
 
@@ -225,7 +225,7 @@
         @for (question of shortQuestions; track question; let i = $index) {
 
         <div class="question-box">
-            <mat-checkbox></mat-checkbox>
+            <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
 
 
 
@@ -265,7 +265,7 @@
 
     <!-- </div> -->
     <div class="button-area">
-        <button type="button">Add</button>
+        <button type="button" (click)="addSelectedQuestions()">Add</button>
     </div>
 
 </div>
