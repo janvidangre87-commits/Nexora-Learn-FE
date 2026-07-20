@@ -23,4 +23,8 @@ export class CreateNewSection implements OnInit{
   addLecture(){
       this.router.navigate(['layout/create/add-lecture'])
   }
+
+  importQuiz() {
+    this.router.navigate(['layout/create/import-quiz'])
+  }
 }
