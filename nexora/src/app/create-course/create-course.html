@@ -116,8 +116,8 @@
 
             <label> Difficulty level</label>
             <div class="option">
-              <select name="" id="">
-                <option value="" selected>Easy</option>
+              <select name="" id="" name="difficulty" [(ngModel)]="courseData.difficulty">
+                <option value="" selected >Easy</option>
                 <option value="">Mediun</option>
                 <option value="">Hard</option>
               </select>
@@ -160,8 +160,8 @@
         <div class="block">
           <label class="block-lable"> Visibility </label>
           <div class="option">
-            <select>
-              <option value="">Public</option>
+            <select name="visibility" [(ngModel)]="courseData.visibility">
+              <option value="" selected>Public</option>
               <option value="">Private</option>
             </select>
           </div>
@@ -175,11 +175,11 @@
              <div class="schedule-block-inner">
                <div>
                 <label for="">Select Date </label>
-                <input type="date" placeholder="Select Date ">
+                <input type="date" placeholder="Select Date" name="scheduleDate" [(ngModel)]="courseData.scheduleDate">
               </div>
               <div>
                 <label for="">Select Time </label>
-                <input type="time" placeholder="Select Time">
+                <input type="time" placeholder="Select Time" name="scheduleTime" [(ngModel)]="courseData.scheduleTime">
                 
               </div>
              </div>
@@ -263,7 +263,6 @@
             "
             >Pricing Model is required</mat-error
           >
-        
         </div>
           @if (courseData.pricing === "paid") {
             <select class="price-select">

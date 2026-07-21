@@ -33,8 +33,13 @@ export class CreateCourseComponent {
     courseData = {
     title: '',
     description: '',
-    difficulty: '',
-    pricing: ''
+    difficulty: 'easy',
+    isPublic:false,
+    isQA:false,
+    visibility:'public',
+    pricing: '',
+    scheduleDate: '',
+    scheduleTime: ''
   };
   thumbnail :string|null=null;
   video:string | null = null;
@@ -49,11 +54,9 @@ export class CreateCourseComponent {
     strikeThrough: false
   }
 
-  constructor(private router:Router){
+  constructor(private router:Router){}
 
-  }
-
-   text(type: string) {
+  text(type: string) {
     const tool = this.editorArea.nativeElement;
     tool.focus();
     switch (type) {
@@ -133,9 +136,11 @@ export class CreateCourseComponent {
     this.video = null;
     this.video = null;
   }
- 
-
+  
   next(){
+    this.courseData.description=this.editorArea.nativeElement.innerHTML;
+    localStorage.setItem('courseData',JSON.stringify(this.courseData))
+    console.log(this.courseData)
     this.isClick=true;
     this.router.navigate(['layout/create/add-curriculuam/'])
   }

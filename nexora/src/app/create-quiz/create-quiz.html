@@ -5,7 +5,7 @@
   </div>
   <div class="block">
     <label class="block-lable"> Title : </label>
-    <input type="text" placeholder="New Course" />
+    <input type="text" placeholder="New Course" name="title" [(ngModel)]="quiz.title" />
   </div>
 
   <div class="bolck">
@@ -86,7 +86,7 @@
   <div class="btn-ok">
     <button class="btn btn-outline-dark" type="button">Cancle</button>
 
-    <button class="btn new-section-btn-ok" type="button">Ok</button>
+    <button class="btn new-section-btn-ok" type="button" (click)="onOk()">Ok</button>
   </div>
 
   <div>
@@ -137,6 +137,7 @@
               <mat-radio-button></mat-radio-button>
               <input
                 type="text"
+                name="currentOptions"
                 [(ngModel)]="currentOptions[i]"
                 [placeholder]="'Option ' + (i + 1)"
               />
@@ -149,7 +150,7 @@
       }
 
       @if (selectedType === 'True/False') {
-        <mat-radio-group class="radio-field" [(ngModel)]="correctAnswer" required>
+        <mat-radio-group class="radio-field" name="correctAnswer" [(ngModel)]="correctAnswer" required>
           <mat-radio-button class="radio-field-button" [value]="true">True</mat-radio-button>
           <mat-radio-button class="radio-field-button" [value]="false">False</mat-radio-button>
         </mat-radio-group>
@@ -163,6 +164,7 @@
         <input
           type="number"
           class="ans-input"
+          name="correctAnswer"
           [(ngModel)]="correctAnswer"
           placeholder="Enter numerical answer"
           required
@@ -173,6 +175,7 @@
         <input
           type="text"
           class="ans-input"
+          name="correctAnswer"
           [(ngModel)]="correctAnswer"
           placeholder="Enter short answer"
           required
@@ -183,6 +186,7 @@
         <input
           type="text"
           class="ans-input"
+          name="correctAnswer"
           [(ngModel)]="correctAnswer"
           placeholder="Enter blank answer"
           required
@@ -203,7 +207,7 @@
           <div class="select-import">
             <div><p>Class</p></div>
             <div class="select-import-block">
-              <select [(ngModel)]="selectedClass" (change)="onClassChange()">
+              <select name="selectedClass" [(ngModel)]="selectedClass" (change)="onClassChange()">
                 <option value="" selected disabled>select class</option>
                 @for (item of allData; track item.className) {
                   <option [value]="item.className">Class {{ item.className }}</option>
@@ -216,6 +220,7 @@
             <div><p>Subject</p></div>
             <div class="select-import-block">
               <select
+                name="selectedSubject"
                 [(ngModel)]="selectedSubject"
                 (change)="onSubjectChange()"
                 [disabled]="!selectedClass"
@@ -232,6 +237,7 @@
             <div><p>Chapter</p></div>
             <div class="select-import-block">
               <select
+                name="selectedChapter"
                 [(ngModel)]="selectedChapter"
                 (change)="onChapterChange()"
                 [disabled]="!selectedSubject"

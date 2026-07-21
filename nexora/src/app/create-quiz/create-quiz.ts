@@ -23,6 +23,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   styleUrl: './create-quiz.scss',
 })
 export class CreateQuiz implements OnInit{
+  @ViewChild('editorArea') editorArea!: ElementRef<any>;
+  quiz={
+    title:'',
+    distription:'',
+  }
+
+
   myControl = new FormControl('MCQ');
   options: string[] = ['MCQ', 'True/False', 'Numerical','Short Answer','Fill in the blancks'];
   filteredOptions: Observable<string[]>;
@@ -63,6 +70,12 @@ export class CreateQuiz implements OnInit{
   this.correctAnswer = null;
   }
 
+  onOk(){
+    this.quiz.distription=this.editorArea.nativeElement.innerHTML;
+    localStorage.setItem('quiz',JSON.stringify(this.quiz));
+    console.log(this.quiz)
+  }
+
   
 
   private _filter(value: string): string[] {
@@ -70,7 +83,6 @@ export class CreateQuiz implements OnInit{
 
     return this.options.filter((option) => option.toLowerCase().includes(filterValue));
   }
- @ViewChild('editorArea') editorArea!: ElementRef<any>;
   text(type: string) {
     const tool = this.editorArea.nativeElement;
     tool.focus();
