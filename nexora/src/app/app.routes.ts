@@ -7,6 +7,7 @@ import { LayoutComponent } from './layout/layout';
 import { AddLectureComponent } from './add-lecture/add-lecture';
 import { ImportNotesComponent } from './import-notes/import-notes';
 import { CreateNewSection } from './create-new-section/create-new-section';
+import { ImportQuiz } from './import-quiz/import-quiz';
 import { CreateQuiz } from './create-quiz/create-quiz';
 
 export const routes: Routes = [
@@ -35,6 +36,7 @@ export const routes: Routes = [
                         path:'import-notes',component:ImportNotesComponent
                     },
                     {
+                        path: 'import-quiz', component:ImportQuiz
                         path:'create-quiz',component:CreateQuiz
                     }
                 ]
