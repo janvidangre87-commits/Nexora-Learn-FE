@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { CourseService } from '../service/course.service';
@@ -10,6 +10,8 @@ import { CourseService } from '../service/course.service';
   styleUrl: './create-new-section.scss',
 })
 export class CreateNewSection implements OnInit{
+  @Input() title:string ='';
+  
   isShowContent: boolean = false;
   pdfName: string = '';
   selectedQuestions: any[] = [];
@@ -25,7 +27,11 @@ export class CreateNewSection implements OnInit{
 
    
   addLecture(){
-      this.router.navigate(['layout/create/add-lecture'])
+    this.router.navigate(['layout/create/add-lecture'])
+  }
+
+  onQuziClick(){
+    this.router.navigate(['layout/create/create-quiz'])
   }
 
   importQuiz() {

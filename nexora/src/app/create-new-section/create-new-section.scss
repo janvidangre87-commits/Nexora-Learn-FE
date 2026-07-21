@@ -1,6 +1,8 @@
 $btn-color:#D2F55B;
 $color-bg: #ffff;
 $border-bg: gray;
+$color-block:rgb(239, 234, 229);
+
 .module-box{
     border: 2px solid $border-bg;
     border-radius: 8px;
@@ -21,23 +23,34 @@ $border-bg: gray;
     font-size: 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
+    justify-content: space-between; 
 }
 
 .btn{
     border-radius: 25px;
 }
-.pdf-content{
+.show-lecture{
     margin-left: 15px;
+    label{
+        margin-bottom: 5px;
+    }
+    &-content{
+        background-color: $color-block;
+        border: 2px solid $border-bg;
+        border-radius: 8px;
+        width: 80%;
+        margin: 10px;
+        padding: 10px;
+    }
 }
-.pdf-name{
-    margin-left: 15px;
-    padding-top:9px; 
-    padding-left: 5px;
-    width: 200px;
+.pdf-content{
+    background-color: $color-block;
     border: 2px solid $border-bg;
-    border-radius: 10px;
+    border-radius: 8px;
+    width: 25%;
+    text-align: center;
+    padding: 5px;
+    
 }
 
 .quiz-list {

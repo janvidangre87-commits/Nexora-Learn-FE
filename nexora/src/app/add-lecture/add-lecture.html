@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container container-body">
   <div class="block">
     <label class="block-lable"> Title : </label>
     <input type="text" placeholder="New Course" />
@@ -8,82 +8,75 @@
     <label class="block-lable"> Discription: </label>
     <div class="discription-box">
       <div class="discription-tool">
-        <button
-          type="button"
-          class="btn btn-light"
-          mat-icon-button (click)="execCmd('undo')"
-        >
+        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('undo')">
           <mat-icon class="icon">undo</mat-icon>
         </button>
-
-        <button
-          type="button"
-          class="btn btn-light"
-          mat-icon-button
-          (click)="execCmd('redo')"
-        >
+        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('redo')">
           <mat-icon class="icon">redo</mat-icon>
         </button>
-
         <span class="divider"></span>
-
         <button mat-button type="button" class="select">
           Normal text
           <mat-icon>expand_more</mat-icon>
         </button>
-
         <span class="divider"></span>
-
-        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('insertUnorderedList')">
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertUnorderedList')"
+        >
           <mat-icon class="icon">format_list_bulleted</mat-icon>
         </button>
-
-        <button
-          type="button"
-          class="btn btn-light"
-          mat-icon-button
-         (click)="text('bold')"
-        >
+        <button type="button" class="btn btn-light" mat-icon-button (click)="text('bold')">
           <mat-icon class="icon">format_bold</mat-icon>
         </button>
-
-        <button
-          type="button"
-          class="btn btn-light"
-          mat-icon-button
-          (click)="text('italic')"
-        >
+        <button type="button" class="btn btn-light" mat-icon-button (click)="text('italic')">
           <mat-icon class="icon">format_italic</mat-icon>
         </button>
-
         <button type="button" class="btn btn-light" mat-icon-button (click)="text('underline')">
           <mat-icon class="icon">format_underlined</mat-icon>
         </button>
-        <button type="button" class="btn btn-light" mat-icon-button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('formatBlock', 'pre')"
+        >
           <mat-icon class="icon">code</mat-icon>
         </button>
-        <button type="button" class="btn btn-light" mat-icon-button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="insertLink()">
           <mat-icon class="icon">link</mat-icon>
         </button>
-
-        <button type="button" class="btn btn-light" mat-icon-button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="insertImage()">
           <mat-icon class="icon">image</mat-icon>
         </button>
-
-        <button type="button" class="btn btn-light" mat-icon-button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertText', '&#123;&#125;')"
+        >
           <mat-icon class="icon">data_object</mat-icon>
         </button>
-        <!-- <button type="button" class="btn btn-light" mat-icon-button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('formatBlock', 'blockquote')"
+        >
           <mat-icon class="icon">format_quote</mat-icon>
-        </button> -->
-        <button type="button" class="btn btn-light" mat-icon-button>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertHorizontalRule')"
+        >
           <mat-icon class="icon">remove</mat-icon>
         </button>
       </div>
-
-      <!-- <textarea contenteditable="true" class="text-area"></textarea> -->
-        <div #editorArea contenteditable="true" class="text-area"></div>
-
+      <div #editorArea contenteditable="true" class="text-area"></div>
     </div>
   </div>
 
@@ -249,19 +242,15 @@
         </select>
       </div>
     </div>
-    <!-- @if (allTopicsForSubject.length) {
-  <div class="topics-list">
-    @for (topic of allTopicsForSubject; track topic.topicName) {
-      <div class="topic-item">
-        <h4>{{ topic.topicName }}</h4>
-        <p>{{ topic.content }}</p>
-      </div>
-    }
-  </div>
-} -->
     <div class="button">
       <button type="button" class="btn btn-outline-dark" (click)="next()"> next </button>
     </div>
+  </div>
+
+  <div style="display: flex; gap: 15px;">
+    <button type="button" class="btn btn-outline-dark">cancle</button>
+    <button type="button" class="btn btn-upload" (click)="onAddlecture()">Add Lecture</button>
+
   </div>
 
 }
