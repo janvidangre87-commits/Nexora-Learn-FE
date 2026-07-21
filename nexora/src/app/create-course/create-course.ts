@@ -7,12 +7,15 @@ import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 
 
 @Component({
   selector: 'app-create-course',
   standalone: true,
   imports: [
+    FormsModule,
     CommonModule,
     MatIconModule,
     MatFormFieldModule,
@@ -27,9 +30,18 @@ import { Router, RouterOutlet } from '@angular/router';
 })
 export class CreateCourseComponent {
   @ViewChild('editorArea') editorArea!: ElementRef<HTMLDivElement>;
+    courseData = {
+    title: '',
+    description: '',
+    difficulty: '',
+    pricing: ''
+  };
   thumbnail :string|null=null;
   video:string | null = null;
   isClick:boolean=false;
+  isSchedule:boolean=false;
+  plan:string=''
+  pricingOffer=['One time pricing only','Subscription only', 'subscription and one time purchase','Membership only']
   activeFormats = {
     bold: false,
     italic: false,
@@ -41,24 +53,37 @@ export class CreateCourseComponent {
 
   }
 
-  text(type:string){
-    const tool=this.editorArea.nativeElement;
+   text(type: string) {
+    const tool = this.editorArea.nativeElement;
     tool.focus();
-    switch(type){
+    switch (type) {
       case 'bold':
-        tool.style.fontWeight= tool.style.fontWeight=== 'bold' ? 'normal' :'bold';
+        tool.style.fontWeight = tool.style.fontWeight === 'bold' ? 'normal' : 'bold';
         break;
       case 'italic':
-        tool.style.fontStyle= tool.style.fontStyle=== 'italic'? 'Inter' :'italic';
+        tool.style.fontStyle = tool.style.fontStyle === 'italic' ? 'normal' : 'italic'; 
         break;
       case 'underline':
-        tool.style.textDecorationLine= tool.style.textDecorationLine==='underline'? 'none':'underline'
+        tool.style.textDecorationLine =
+          tool.style.textDecorationLine === 'underline' ? 'none' : 'underline';
         break;
     }
   }
   execCmd(command: string, value?: string): void {
     this.editorArea.nativeElement.focus();
     document.execCommand(command, false, value);
+  }
+  insertLink() {
+    const url = prompt('Enter the URL:', 'https://');
+    if (url) {
+      this.execCmd('createLink', url);
+    }
+  }
+  insertImage() {
+    const url = prompt('Enter the image URL:');
+    if (url) {
+      this.execCmd('insertImage', url);
+    }
   }
 
   onFileSelect(event: Event): void {
@@ -108,8 +133,7 @@ export class CreateCourseComponent {
     this.video = null;
     this.video = null;
   }
-
-
+ 
 
   next(){
     this.isClick=true;

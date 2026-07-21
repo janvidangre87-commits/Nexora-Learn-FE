@@ -1,0 +1,316 @@
+$btn-color:#D2F55B;
+$color-bg: #ffff;
+$border-bg: gray;
+.container{
+    padding-top: 10px;
+}
+.setting-btn{
+    float: right;
+    background-color: $btn-color;
+    &-inner{
+        display: flex;
+        gap: 35px;
+        margin-top: 5rem;
+        float: right;
+    }
+}
+.block{ 
+    input{
+        height: 45px;
+        width: 100%;
+        padding-left: 10px;
+        border: 2px solid $border-bg;
+        border-radius: 8px;
+        background: $color-bg;
+    }
+}
+.block-lable{
+    display: flex;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 15px;
+}
+.btn-ok{
+    display: flex;
+    justify-content: right;
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.select{
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    line-height: 1px;
+    color: black;
+    border: none;
+    background-color: $color-bg;
+    padding: 0 8px;
+}
+
+.discription-box{
+    background: $color-bg;
+    border: 2px solid $border-bg;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.discription-tool{
+    
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    flex-wrap: wrap;
+    border-bottom: 2px solid $border-bg;
+
+    .icon{
+        cursor: pointer;
+    }
+}
+
+.text-area{
+    width: 100%;
+    min-height: 140px;
+}
+
+.new-section-btn-ok{
+    width: 70px;
+    background-color: $btn-color;
+}
+.form-selected {
+  margin: 0;
+  ::ng-deep .full-width {
+    width: 60%;
+    .mat-mdc-form-field-wrapper {
+      padding-bottom: 0;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      height: 32px;           
+      padding: 0 8px;
+       background-color: white !important;
+      border: 2px solid gray !important;
+      border-radius: 4px;
+    }
+
+    .mat-mdc-form-field-infix {
+      min-height: unset;
+      padding: 4px 0;
+      border-top: 0;
+    }
+      .mdc-line-ripple,
+    .mat-mdc-form-field-flex .mdc-notched-outline {
+      display: none !important;
+    }
+
+    input {
+      height: 24px;
+      font-size: 13px;
+    }
+  }
+}
+.divider1{
+    border-top: 4px dashed $border-bg;
+}
+.que-container{
+    display: grid;
+    grid-template-columns: 300px 2px 2fr;
+    gap: 10px;
+     @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+}
+.question-item{
+    margin: 10px;
+    padding: 8px;
+    width: 70%;
+    border: 2px solid $border-bg;
+    border-radius: 8px;
+    background-color: white;
+}
+.divider2{
+    width: 0px;
+    border-left: 2px solid $border-bg;
+}
+
+.que-right{
+    margin: 10px;
+}
+.input-text input{
+    width: 100%;
+    height: 40px;
+    padding: 5px;
+    border: 2px solid $border-bg;
+    border-radius: 8px;
+}
+.input-discription input{
+    width: 100%;
+    margin-top: 10px;
+    height: 40px;
+    padding: 5px;
+    border: 2px solid $border-bg;
+    border-radius: 8px;
+}
+.que-option{
+    display: flex;
+    border: 2px solid $border-bg;
+    border-radius:8px ;
+    margin: 10px;
+    background-color: white;
+    height: 45px;
+    width: 70%;
+}
+
+.btn-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 3rem;
+    &-add{
+        background-color: $btn-color;
+    }
+    
+}
+.checkbox{
+    display: flex;
+    width: 25%;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid $border-bg;
+    border-radius: 8px;
+    padding: 15px;
+}
+.ans-input{
+    width: 100%;
+    margin-top: 10px;
+    height: 40px;
+    padding: 5px;
+    border: 2px solid $border-bg;
+    border-radius: 8px;
+
+}
+
+.mcq-fields{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    input{
+        border: 2px solid $border-bg;
+        border-radius: 8px;
+        width: 100%;
+        padding: 10px;
+    }
+    &-option{
+        display: flex;
+        gap: 10px;
+        margin: 15px;
+    }
+}
+
+.radio-field{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    gap: 10px;
+    &-button{
+        border: 2px solid gray;
+        border-radius: 8px;
+        background-color: white;
+    }
+}
+
+.imports-1{
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    gap: 3rem;
+}
+.select-import{
+    display: flex !important;
+    flex-direction: column !important;
+    &-block select{
+        width: 150px;
+        height: 35px;
+        border: 2px solid $border-bg;
+        border-radius: 8px;
+    }
+}
+.btn-upload{
+    background-color:$btn-color;
+    border: 1px solid $border-bg;
+}
+.basic-btn{
+    display: flex;
+    gap: 35px;
+    margin-top: 2rem;
+    float: right;
+}
+.basic{
+    border-top: 2px dashed $border-bg;
+    padding: 25px;
+    &-row-1{
+        margin: 15px;
+        display: flex;
+        align-items: center;
+        
+        &-inner{
+            margin-left: 5rem;
+            input{
+                width: 35%;
+            }
+        }
+    }
+
+    &-row-2{
+        display: flex;
+        align-items: center;
+        &-inner{
+            margin-left: 5rem;
+            
+        }
+    }
+    &-select{
+        margin-left: 15px;
+        padding: 10px;
+        width: 30%;
+        border: 2px solid $border-bg;
+        border-radius: 8px;
+        background-color: $color-bg;
+        input{
+            margin-left: 15px;
+            width: 30%;
+        }
+    }
+    &-lable{
+        font-size: 15px;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    &-number{
+        display: flex;
+        flex-direction: column;
+        input{
+            width: 25%;
+        }
+    }
+}
+
+.advance{
+    border-top: 2px dashed $border-bg;
+    padding: 25px;
+    &-row-1{
+        margin-top: 15px;
+
+    }
+    &-row-4{
+        margin-top: 15px;
+        &-data{
+            display: flex;
+            flex-direction: column;
+
+        }
+    }
+
+}
+
