@@ -17,90 +17,85 @@
         <button type="button" class="btn btn-outline-success" (click)="addLecture()">Add Lecture</button>
       </div>
     </div>
-    @if (!isShowContent) {
+  </div>
+
+  @if (isShowContent) {
+    
+  <div class="show-lecture-content">
+    <h5>{{title}}</h5>
+    <p>Introduction to course overview and objective </p>
+  </div>
+  <div class="show-lecture">
+    <label style="margin-left: 40px; font-size: 20px;">Notes</label>
     <div class="pdf-content">
       <p>{{ pdfName }}</p>
     </div>
-    }
-  </div>
-
-   @if (isShowContent) {
-      <div class="show-lecture-content">
-        <h5>{{title}}</h5>
-        <p>Introduction to course overview and objective </p>
-      </div>
-      <div class="show-lecture">
-        <label>Notes</label>
-        <div class="pdf-content">
-          <p>{{ pdfName }}</p>
-        </div>
-      </div>
-    }
-  </div>      
-  
-  <div class="module">
-    <div class="module-icon">
-      <mat-icon>quiz</mat-icon>
-      <span>Quiz</span>
-    </div>
-    <div style="display: flex; gap: 8px; ">
-      <button type="button" class="btn btn-outline-dark"> Create Quzis</button>
-      <button type="button" class="btn btn-outline-dark" (click)="importQuiz()"> Import Quzis</button>
-      <button type="button" class="btn btn-outline-success" (click)="onQuziClick()"> Create Quzis</button>
-      <button type="button" class="btn btn-outline-success"> Import Quzis</button>
-    </div>
   </div>
   
-
-  @if (selectedQuestions.length) {
-  <div class="quiz-list">
-    <hr>
-
-    @for (q of selectedQuestions; track q; let i = $index) {
-    <div class="question-box">
-        <div class="question-box-title">
-          <div>
-          <mat-icon>help</mat-icon>
-          <span>{{ q.question }}</span>
-        </div>
-        <div class="icons">
-          <span>{{ q.type }}</span>
-          <mat-icon style="cursor: pointer;" (click)="deleteQuestion(i)">delete</mat-icon>
-        </div>
-        </div>
-
-      @if(q.type == 'MCQ'){
-      <div class="options">
-        @for (option of q.options; track option; let j = $index) {
-        <div>
-          <span>{{j+1}} ) {{ option }}</span>
-        </div>
-        }
-
-      </div>
-
-      }
-      @else if(q.type == 'True/False') {
-      <div class="options">
-        <div>
-          <ul>
-            <li>True</li>
-            <li>False</li>
-          </ul>
-        </div>
-
-      </div>
-      }
-      
-
-    </div>
-    }
-    <div id="add-btn">
-      <button id="add-more">Add More</button>
-
-    </div>
-    
-  </div>
   }
 
+
+<div class="module">
+  <div class="module-icon">
+    <mat-icon>quiz</mat-icon>
+    <span>Quiz</span>
+  </div>
+  <div style="display: flex; gap: 8px; ">
+
+    <button type="button" class="btn btn-outline-success" (click)="onQuziClick()"> Create Quiz</button>
+    <button type="button" class="btn btn-outline-success" (click)="importQuiz()"> Import Quiz</button>
+  </div>
+</div>
+
+
+@if (selectedQuestions.length) {
+<div class="quiz-list">
+  <hr>
+
+  @for (q of selectedQuestions; track q; let i = $index) {
+  <div class="question-box">
+    <div class="question-box-title">
+      <div>
+        <mat-icon>help</mat-icon>
+        <span>{{ q.question }}</span>
+      </div>
+      <div class="icons">
+        <span>{{ q.type }}</span>
+        <mat-icon style="cursor: pointer;" (click)="deleteQuestion(i)">delete</mat-icon>
+      </div>
+    </div>
+
+    @if(q.type == 'MCQ'){
+    <div class="options">
+      @for (option of q.options; track option; let j = $index) {
+      <div>
+        <span>{{j+1}} ) {{ option }}</span>
+      </div>
+      }
+
+    </div>
+
+    }
+    @else if(q.type == 'True/False') {
+    <div class="options">
+      <div>
+        <ul>
+          <li>True</li>
+          <li>False</li>
+        </ul>
+      </div>
+
+    </div>
+    }
+
+
+  </div>
+  }
+  <div id="add-btn">
+    <button id="add-more">Add More</button>
+
+  </div>
+
+</div>
+}
 </div>

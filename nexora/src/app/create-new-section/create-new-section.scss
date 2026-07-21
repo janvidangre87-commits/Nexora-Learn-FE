@@ -29,28 +29,18 @@ $color-block:rgb(239, 234, 229);
 .btn{
     border-radius: 25px;
 }
-.show-lecture{
-    margin-left: 15px;
-    label{
-        margin-bottom: 5px;
-    }
-    &-content{
-        background-color: $color-block;
-        border: 2px solid $border-bg;
-        border-radius: 8px;
-        width: 80%;
-        margin: 10px;
-        padding: 10px;
-    }
-}
 .pdf-content{
-    background-color: $color-block;
+     margin: 10px;
     border: 2px solid $border-bg;
-    border-radius: 8px;
-    width: 25%;
-    text-align: center;
-    padding: 5px;
+    border-radius: 10px;
+    background-color: rgb(237, 235, 235);
+    padding: 10px;
+    margin-left: 50px;
+    width: 250px;
+    height: 45px;
+    justify-content: center;
     
+
 }
 
 .quiz-list {
@@ -113,6 +103,27 @@ $color-block:rgb(239, 234, 229);
     justify-content: end;
     align-items: end;
 }
+
+.show-lecture-content{
+    margin: 10px;
+    border: 2px solid $border-bg;
+    border-radius: 10px;
+    background-color: rgb(237, 235, 235);
+    padding: 10px;
+    margin-left: 50px;
+    margin-right: 70px; 
+
+}
+// .show-lecture{
+//     margin: 10px;
+//     padding: 10px;
+//     margin-left: 50px;
+//     margin-right: 70px;  
+// }
+
+
+
+
 
 
 
