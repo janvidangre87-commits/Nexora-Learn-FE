@@ -15,6 +15,7 @@ export class AddSectionComponent {
 
     sectionData = {
       title: '',
+      description: ''
     };
 
     isModule:boolean=false;
@@ -64,6 +65,9 @@ sectionForm: any;
   }
 
     module(){
+      this.sectionData.description = this.editorArea.nativeElement.innerHTML;
+      localStorage.setItem('sectionData', JSON.stringify(this.sectionData));
+      console.log(this.sectionData);
       this.isModule=true
       this.router.navigate(['layout/create/create-new-section'])
     }
