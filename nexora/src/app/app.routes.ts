@@ -37,6 +37,8 @@ export const routes: Routes = [
                     },
                     {
                         path: 'import-quiz', component:ImportQuiz
+                    },
+                    {
                         path:'create-quiz',component:CreateQuiz
                     }
                 ]

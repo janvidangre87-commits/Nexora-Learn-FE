@@ -1,7 +1,7 @@
 <div class="container container-body">
   <div class="block">
     <label class="block-lable"> Title : </label>
-    <input type="text" placeholder="New Course" />
+    <input type="text" placeholder="New Course" [(ngModel)]="title"/>
   </div>
 
   <div class="bolck">
@@ -160,18 +160,18 @@
             <div class="time-span">
                 <span>Start time </span>
                 <form action="post">
-                    <input type="number" placeholder="hours">
-                    <input type="number" placeholder="min">
-                    <input type="number" placeholder="sec">
+                    <input type="number" placeholder="hours" [(ngModel)]="sHour" name="sHour">
+                    <input type="number" placeholder="min" [(ngModel)]="sMin" name="sMin">
+                    <input type="number" placeholder="sec" [(ngModel)]="sSec" name="sSec">
                 </form>
             </div>
 
             <div class="time-span">
                 <span>End time </span>
                 <form action="post">
-                    <input type="number" placeholder="hours">
-                    <input type="number" placeholder="min">
-                    <input type="number" placeholder="sec">
+                    <input type="number" placeholder="hours" [(ngModel)]="eHour" name="eHour">
+                    <input type="number" placeholder="min" [(ngModel)]="eMin" name="eMin">
+                    <input type="number" placeholder="sec" [(ngModel)]="eSec" name="eSec">
                 </form>
             </div>
         </div>
