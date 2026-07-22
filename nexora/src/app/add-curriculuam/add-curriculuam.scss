@@ -1,0 +1,27 @@
+$btn-color:#D2F55B;
+$color-bg: #ffff;
+$border-bg: gray;
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    float: right;
+}
+.box{
+    background: $color-bg;
+    margin-top: 7rem;
+    width: 80%;
+    padding: 5px 0 20px 0;
+    border: 2px dashed $border-bg;
+    border-radius: 8px;
+    &__upload{
+        padding: 25px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }    
+}
+.btn{
+    background-color: $btn-color;
+}

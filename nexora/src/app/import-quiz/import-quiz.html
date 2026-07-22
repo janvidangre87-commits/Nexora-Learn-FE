@@ -1,0 +1,332 @@
+@if (!isContinue) {
+
+<div class="quiz-card">
+
+    <h5>Select</h5>
+
+    <div class="row">
+
+        <div>
+            <label>Class</label>
+            <div>
+                <select [(ngModel)]="selectedClass" class="class-select">
+                    <option value="">Select Class</option>
+
+                    @for (c of classList; track c) {
+                    <option [value]="c">{{ c }}</option>
+                    }
+
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <label>Subject</label>
+            <select [(ngModel)]="selectedSubject" class="class-select">
+                <option value="">Select Subject</option>
+
+                @for (s of subjectList; track s) {
+                <option [value]="s">{{ s }}</option>
+                }
+
+            </select>
+        </div>
+
+        <div>
+            <label>Chapter</label>
+            <select [(ngModel)]="selectedChapter" class="class-select">
+                <option value="">Select Chapter</option>
+
+                @for (ch of chapterList; track ch) {
+                <option [value]="ch">{{ ch }}</option>
+                }
+
+            </select>
+        </div>
+
+    </div>
+
+    <div class="button-area">
+        <button type="button" (click)="continue()">Continue</button>
+    </div>
+
+</div>
+
+} @else {
+
+<div class="quiz">
+    <div class="row-2">
+
+        <div>
+            <label>Select Type</label>
+            <select [(ngModel)]="selectedType" class="class-select">
+                <option value="">{{selectedType}}</option>
+
+                @for (st of selectType; track st) {
+                <option [value]="st">{{ st }}</option>
+                }
+
+            </select>
+        </div>
+
+        <div>
+            <label>Class</label>
+            <div>
+
+                <select [(ngModel)]="selectedClass" class="class-select">
+                    <option value="">{{selectedClass}}</option>
+
+                    @for (c of classList; track c) {
+                    <option [value]="c">{{ c }}</option>
+                    }
+
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <label>Subject</label>
+            <select [(ngModel)]="selectedSubject" class="class-select">
+                <option value="">{{selectedSubject}}</option>
+
+                @for (s of subjectList; track s) {
+                <option [value]="s">{{ s }}</option>
+                }
+
+            </select>
+        </div>
+
+        <div>
+            <label>Chapter</label>
+            <select [(ngModel)]="selectedChapter" class="class-select">
+                <option value="">{{selectedChapter}}</option>
+
+                @for (ch of chapterList; track ch) {
+                <option [value]="ch">{{ ch }}</option>
+                }
+
+            </select>
+        </div>
+    </div>
+
+    @if(selectedType == "MCQ") {
+    <div class="alignment">
+        @for (question of mcqQuestions; track question; let i = $index) {
+
+        <div class="question-box">
+
+            <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
+
+            <div class="question">
+
+                <h6>{{ question.question }}</h6>
+
+                <div class="options">
+                    @for (option of question.options; track option; let j = $index) {
+                    <div>
+                        <span>{{j+1}} ) {{ option }}</span>
+
+
+                    </div>
+                    }
+
+
+
+                    <div class="icons">
+                        <span>Marks:[{{ question.marks }}]</span>
+                        <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
+                        <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        }
+    </div>
+    }@else if(selectedType == "True/False") {
+    <div class="alignment">
+        @for (question of trueFalseQuestions; track question; let i = $index) {
+
+        <div class="question-box">
+
+            <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
+
+            <div class="question">
+
+                <h6>{{ question.question }}</h6>
+                <div class="options">
+                    <div>
+                        <ul>
+                            <li>True</li>
+                            <li>False</li>
+                        </ul>
+                    </div>
+
+
+
+                    <div class="icons">
+                        <small>Marks:[{{ question.marks }}]</small>
+                        <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
+                        <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+    </div>
+    }
+
+
+    @else if(selectedType == "Numerical") {
+
+    <div class="alignment">
+        @for (question of numericalQuestions; track question; let i = $index) {
+
+        <div class="question-box">
+            <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
+
+
+
+            <div class="question">
+
+
+                <p>{{ question.question }}</p>
+                <!-- <div class="options"> -->
+
+
+
+
+                <div class="icons">
+                    <small>Marks:[{{ question.marks }}]</small>
+                    <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
+                    <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
+
+                </div>
+                <!-- </div> -->
+            </div>
+
+        </div>
+
+
+
+        }
+    </div>
+
+    } @else if(selectedType == "Short") {
+    <div class="alignment">
+        @for (question of shortQuestions; track question; let i = $index) {
+
+        <div class="question-box">
+            <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
+
+
+
+            <div class="question">
+
+
+                <p>{{ question.question }}</p>
+                <!-- <div class="options"> -->
+                <label>[ ]</label>
+
+
+
+
+                <div class="icons">
+                    <small>Marks:[{{ question.marks }}]</small>
+                    <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
+                    <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
+
+                </div>
+                <!-- </div> -->
+            </div>
+
+        </div>
+
+
+
+        }
+    </div>
+
+
+    }
+
+
+
+
+
+
+    <!-- </div> -->
+    <div class="button-area">
+        <button type="button" (click)="addSelectedQuestions()">Add</button>
+    </div>
+
+</div>
+}
+
+
+
+
+
+
+
+@if(showPopup){
+
+<div class="popup-over">
+
+    <div class="popup">
+
+        <button class="close-btn" (click)="closePopup()">✖</button>
+        <div class="dash-border">
+            <div class="selectedType">{{selectedType}}</div>
+            <h6 style="width: 92%; font-weight: 500;">{{ selectedQuestion.question }}</h6>
+
+            @for(option of selectedQuestion.options; track option; let i = $index){
+            <p>{{ i + 1 }}) {{ option }}</p>
+            }
+
+        </div>
+
+
+
+        <table class="details-table">
+            <tr>
+                <th>Exam</th>
+                <th>Class</th>
+                <th>Subject</th>
+                <th>Topic</th>
+                <th>Difficulty</th>
+                <th>Marks</th>
+            </tr>
+
+            <tr>
+                <td>{{ selectedQuestion.exam }}</td>
+                <td>{{ selectedClass }}</td>
+                <td>{{ selectedQuestion.subject }}</td>
+                <td>{{ selectedQuestion.topic }}</td>
+                <td>{{ selectedQuestion.difficulty }}</td>
+                <td>{{ selectedQuestion.marks }}</td>
+            </tr>
+        </table>
+
+        <p class="answer">
+            <span>Answer :</span>
+            <span class="font-pink">{{ selectedQuestion.ans }}</span>
+        </p>
+
+        <p style="margin: auto;">Explanation :</p>
+
+        <p class="font-pink">
+            {{ selectedQuestion.explantion }}
+        </p>
+
+
+    </div>
+
+</div>
+
+}

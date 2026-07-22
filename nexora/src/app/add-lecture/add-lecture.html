@@ -1,0 +1,258 @@
+<div class="container container-body">
+  <div class="block">
+    <label class="block-lable"> Title : </label>
+    <input type="text" placeholder="New Course" [(ngModel)]="title"/>
+  </div>
+
+  <div class="bolck">
+    <label class="block-lable"> Discription: </label>
+    <div class="discription-box">
+      <div class="discription-tool">
+        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('undo')">
+          <mat-icon class="icon">undo</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="execCmd('redo')">
+          <mat-icon class="icon">redo</mat-icon>
+        </button>
+        <span class="divider"></span>
+        <button mat-button type="button" class="select">
+          Normal text
+          <mat-icon>expand_more</mat-icon>
+        </button>
+        <span class="divider"></span>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertUnorderedList')"
+        >
+          <mat-icon class="icon">format_list_bulleted</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="text('bold')">
+          <mat-icon class="icon">format_bold</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="text('italic')">
+          <mat-icon class="icon">format_italic</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="text('underline')">
+          <mat-icon class="icon">format_underlined</mat-icon>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('formatBlock', 'pre')"
+        >
+          <mat-icon class="icon">code</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="insertLink()">
+          <mat-icon class="icon">link</mat-icon>
+        </button>
+        <button type="button" class="btn btn-light" mat-icon-button (click)="insertImage()">
+          <mat-icon class="icon">image</mat-icon>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertText', '&#123;&#125;')"
+        >
+          <mat-icon class="icon">data_object</mat-icon>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('formatBlock', 'blockquote')"
+        >
+          <mat-icon class="icon">format_quote</mat-icon>
+        </button>
+        <button
+          type="button"
+          class="btn btn-light"
+          mat-icon-button
+          (click)="execCmd('insertHorizontalRule')"
+        >
+          <mat-icon class="icon">remove</mat-icon>
+        </button>
+      </div>
+      <div #editorArea contenteditable="true" class="text-area"></div>
+    </div>
+  </div>
+
+  <div class="upload-block">
+  <div class="upload">
+    <label class="block-lable"> Featured Image </label>
+    <div class="box">
+      <div class="box-upload">
+        <div *ngIf="thumbnail" class="box-upload__preview-wrap">
+          <img
+            [src]="thumbnail"
+            alt="Thumbnail preview"
+            class="box-upload__img"
+          />
+          <button class="btn btn-light remove-btn" (click)="removeThumbnail()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <div *ngIf="!thumbnail" class="box-upload__preview-wrap">
+          <mat-icon>image</mat-icon>
+          <div>
+            <input
+              type="file"
+              style="display: none"
+              (change)="onFileSelect($event)"
+              #fileInput
+            />
+            <button
+              class="btn btn-light next option-btn"
+              (click)="fileInput.click()"
+            >
+              Upload Thumnail
+            </button>
+          </div>
+          <p>jpg, png, gif and web format up to ***MB</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="upload">
+    <label class="block-lable"> Video Intro </label>
+    <div class="box">
+      <div class="box-upload">
+        <div *ngIf="video" class="box-upload__preview-wrap">
+          <video [src]="video" controls class="box-upload__video"></video>
+          <button class="btn btn-light remove-btn" (click)="removeVideo()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <div *ngIf="!video" class="box-upload__preview-wrap">
+          <mat-icon>videocam</mat-icon>
+          <div>
+            <input
+              type="file"
+              accept="video/*"
+              style="display: none"
+              (change)="onVideoSelect($event)"
+              #videoInput
+            />
+            <button
+              class="btn btn-light next option-btn"
+              (click)="videoInput.click()"
+            >
+              Upload video
+            </button>
+          </div>
+          <p>MP4, MOV, WEBM accepted up to 500MB</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="block">
+        <label class="block-lable">
+            Video Playback time
+        </label>
+        <div class="time">
+            <div class="time-span">
+                <span>Start time </span>
+                <form action="post">
+                    <input type="number" placeholder="hours" [(ngModel)]="sHour" name="sHour">
+                    <input type="number" placeholder="min" [(ngModel)]="sMin" name="sMin">
+                    <input type="number" placeholder="sec" [(ngModel)]="sSec" name="sSec">
+                </form>
+            </div>
+
+            <div class="time-span">
+                <span>End time </span>
+                <form action="post">
+                    <input type="number" placeholder="hours" [(ngModel)]="eHour" name="eHour">
+                    <input type="number" placeholder="min" [(ngModel)]="eMin" name="eMin">
+                    <input type="number" placeholder="sec" [(ngModel)]="eSec" name="eSec">
+                </form>
+            </div>
+        </div>
+        <div class="radio">
+            <mat-radio-group aria-label="Select an option" (change)="onRadioChange($event)">
+                <mat-radio-button value="1">Import Notes</mat-radio-button>
+                <mat-radio-button value="2" >Uplaod Notes</mat-radio-button>
+            </mat-radio-group>
+        </div>
+  </div>
+@if (isUpload) {
+  <div class="import-block">
+     <div class="import">
+      <input type="file" style="display: none;" (change)="onPfdSelect($event)" #fileInput>
+      <mat-icon (click)="fileInput.click()" >upload</mat-icon>
+      <h2>{{pdf}}</h2>
+      <p> PDF,DOCS,PPT,Image or Zip</p>
+     </div>
+  </div>
+  <div style="margin-top: 3rem;" >
+    <div class="btn-block">
+      <button type="button" class="btn btn-outline-dark">Cancle</button>
+      <button type="button" class="btn add-btn mx-4" (click)="onAdd()">Add section</button>
+    </div>
+  </div>
+}
+@if (isImport) {
+  <div class="imports-1">
+    <div class="select-import">
+       <div >
+        <p>Class</p>
+      </div >
+      <div class="select-import-block">
+      <select [(ngModel)]="selectedClass" (change)="onClassChange()">
+        <option value="" selected disabled>select class</option>
+        @for (item of allData; track item.className) {
+          <option [value]="item.className">Class {{ item.className }}</option>
+        }
+      </select>
+      </div>
+    </div>
+
+    <div class="select-import">
+      <div>
+        <p>Subject</p>
+      </div>
+      <div class="select-import-block">
+      <select [(ngModel)]="selectedSubject" (change)="onSubjectChange()" [disabled]="!selectedClass">
+        <option value="" selected disabled>select subject</option>
+        @for (sub of availableSubjects; track sub.subject) {
+          <option [value]="sub.subject">{{ sub.subject }}</option>
+        }
+      </select>
+      </div>
+    </div>
+
+    <div class="select-import">
+       <div >
+        <p>Chapter</p>
+
+      </div>
+      <div class="select-import-block">
+        <select [(ngModel)]="selectedChapter" [disabled]="!selectedSubject">
+          <option value="" selected disabled>select chapter</option>
+          @for (ch of availableChapters; track ch) {
+            <option [value]="ch">{{ ch }}</option>
+            }
+        </select>
+      </div>
+    </div>
+    <div class="button">
+      <button type="button" class="btn btn-outline-dark" (click)="next()"> next </button>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 15px;">
+    <button type="button" class="btn btn-outline-dark">cancle</button>
+    <button type="button" class="btn btn-upload" (click)="onAddlecture()">Add Lecture</button>
+
+  </div>
+
+}
+
+</div>
