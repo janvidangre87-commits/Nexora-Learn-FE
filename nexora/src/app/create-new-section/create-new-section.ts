@@ -12,6 +12,7 @@ import { CourseService } from '../service/course.service';
 export class CreateNewSection implements OnInit{
   @Input() title:string ='';
   
+  lectureData:any = '';
   isShowContent: boolean = false;
   pdfName: string = '';
   selectedQuestions: any[] = [];
@@ -20,12 +21,14 @@ export class CreateNewSection implements OnInit{
   ngOnInit(): void {
     this.isShowContent=this.courseservice.getShowContent();
     this.pdfName=this.courseservice.getContentData();
-
-    this.selectedQuestions = history.state?.questions ?? [];
+    this.selectedQuestions = history.state?.questions ?? []; 
+     const saved = localStorage.getItem('lectureData');
     
+    if (saved) {
+      this.lectureData = JSON.parse(saved);   
+      console.log(this.lectureData);           
+    }
   }
-
-   
   addLecture(){
     this.router.navigate(['layout/create/add-lecture'])
   }
@@ -40,10 +43,9 @@ export class CreateNewSection implements OnInit{
 
   deleteQuestion(index : number) {
     this.selectedQuestions.splice(index, 1);
-
   }
 
- 
-
-
+  ondel(){
+    this.isShowContent=false
+  }
 }

@@ -1,14 +1,77 @@
-
-
-
 <div class="container">
-    <div class="box">
-      <div class="box__upload">
-            <mat-icon>article_person</mat-icon>
-            <h5>No Section yet</h5>
-            <p>Start building your curriculuam by adding the first section</p>
-            <button class="btn" (click)="addSection()"> Add Section </button>
-      </div>
+  <div class="box">
+    <div class="box__upload">
+      <mat-icon>article_person</mat-icon>
+      <h5>No Section yet</h5>
+      <p>Start building your curriculuam by adding the first section</p>
+      <button class="btn" (click)="addSection()"> Add Section </button>
     </div>
+  </div>
+  
+  <div class="course-card" *ngIf="courseData">
+    <h5>{{ courseData.title }}</h5>
+    <div class="course-card__actions">
+      <button class="btn" (click)="viewCourse()">View</button>
+    </div>
+  </div>
 </div>
 
+
+@if (isModel) {
+  <div class="popup">
+    <div class="model">
+      <button type="button" (click)="closeModel()"> x</button>
+
+      <div class="model-title">
+        <label>Title :</label>
+        <span>{{ courseData.title }}</span>
+      </div>
+      <div class="model-discription">
+        <label>Discription :</label>
+        <span [innerHTML]="courseData.description"></span>
+      </div>
+      <div class="model-dificulty">
+        <label> Dificulity Level : </label>
+        <span>{{ courseData.difficulty }}</span>
+      </div>
+
+      <div class="model-options">
+        <div>
+          <label>Public Course : </label>
+          <span>{{ courseData.isPublic }}</span>
+        </div>
+        <div>
+          <label>Q & A : </label>
+          <span>{{ courseData.isQA }}</span>
+        </div>
+      </div>
+
+      <div class="model-pricing">
+        <div>
+          <label>Visibility : </label>
+          <span>{{ courseData.visibility }}</span>
+        </div>
+        <div>
+          <label>Pricing : </label>
+          <span>{{ courseData.pricing }}</span>
+        </div>
+      </div>
+
+      <div class="model-tags">
+        <div>
+          <label>Cateogry : </label>
+          <span>{{ courseData.cateogry }}</span>
+        </div>
+        <div>
+          <label>Tags : </label>
+          <span>{{ courseData.tags }}</span>
+        </div>
+      </div>
+
+      <div class="model-actions">
+        <button type="button" class="btn" (click)="editCourse()">Edit</button>
+        <button type="button" class="btn" (click)="deleteCourse()">Delete</button>
+      </div>
+    </div>
+  </div>
+}

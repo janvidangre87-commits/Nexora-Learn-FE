@@ -257,5 +257,21 @@ $border-bg: gray;
     padding: 10px;
     border: 2px solid $border-bg;
     border-radius: 8px;
+}
+.popup{
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+}
+
+.form {
+    width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
 }
