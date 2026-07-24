@@ -216,4 +216,5 @@ export class AddLectureComponent {
   onAddlecture() {
     this.router.navigate(['layout/create/create-new-section']);
   }
+
 }
