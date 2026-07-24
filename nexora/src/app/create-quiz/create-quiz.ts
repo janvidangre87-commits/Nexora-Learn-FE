@@ -22,7 +22,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   templateUrl: './create-quiz.html',
   styleUrl: './create-quiz.scss',
 })
-export class CreateQuiz implements OnInit {
+export class CreateQuiz implements OnInit{
+  @ViewChild('editorArea') editorArea!: ElementRef<any>;
+  quiz={
+    title:'',
+    distription:'',
+  }
+
+
   myControl = new FormControl('MCQ');
   options: string[] = ['MCQ', 'True/False', 'Numerical', 'Short Answer', 'Fill in the blancks'];
   filteredOptions: Observable<string[]>;
@@ -68,7 +75,13 @@ export class CreateQuiz implements OnInit {
     this.correctAnswer = null;
   }
 
+  onOk(){
+    this.quiz.distription=this.editorArea.nativeElement.innerHTML;
+    localStorage.setItem('quiz',JSON.stringify(this.quiz));
+    console.log(this.quiz)
+  }
 
+  
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -119,7 +132,7 @@ export class CreateQuiz implements OnInit {
     correctAnswer: null
   };
   selectQuestion(q: any, index: number) {
-    // this.currentQuestion = q; 
+   
     this.selectedIndex = index;
     this.currentQuestion = {
       ...q,
@@ -153,15 +166,6 @@ export class CreateQuiz implements OnInit {
       }
     }
 
-
-    // if (
-    //   (this.selectedType === 'MCQ' ||
-    //     this.selectedType === 'True/False') &&
-    //   this.correctAnswer === null
-    // ) {
-    //   this.showAnswerError = true;
-    //   return;
-    // }
     if (
       this.correctAnswer === null ||
       this.correctAnswer === '' ||

@@ -22,8 +22,9 @@
   @if (isShowContent) {
     
   <div class="show-lecture-content">
-    <h5>{{title}}</h5>
-    <p>Introduction to course overview and objective </p>
+    <h5>{{lectureData}}</h5>
+    <p>{{lectureData.discription}}</p>
+    <mat-icon style="float: right; cursor: pointer;" (click)="ondel()">delete</mat-icon>
   </div>
   <div class="show-lecture">
     <label style="margin-left: 40px; font-size: 20px;">Notes</label>

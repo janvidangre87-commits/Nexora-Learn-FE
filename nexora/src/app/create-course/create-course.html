@@ -116,19 +116,19 @@
 
             <label> Difficulty level</label>
             <div class="option">
-              <select name="" id="">
-                <option value="" selected>Easy</option>
-                <option value="">Mediun</option>
-                <option value="">Hard</option>
+              <select name="" id="" name="difficulty" [(ngModel)]="courseData.difficulty">
+                <option value="Easy" selected >Easy</option>
+                <option value="Medium">Mediun</option>
+                <option value="Hard">Hard</option>
               </select>
             </div>
             <div class="toggle">
               <span>Public Course</span>
-              <mat-slide-toggle name="isPublicCourse" color="primary"></mat-slide-toggle>
+              <mat-slide-toggle name="isPublicCourse" [(ngModel)]="courseData.isPublic" color="primary"></mat-slide-toggle>
             </div>
             <div class="toggle">
               <span>Q & A</span>
-              <mat-slide-toggle name="isPublicCourse" color="primary"></mat-slide-toggle>
+              <mat-slide-toggle name="isPublicCourse" [(ngModel)]="courseData.isQA" color="primary"></mat-slide-toggle>
             </div>
           </div>
         </div>
@@ -160,9 +160,9 @@
         <div class="block">
           <label class="block-lable"> Visibility </label>
           <div class="option">
-            <select>
-              <option value="">Public</option>
-              <option value="">Private</option>
+            <select name="visibility" [(ngModel)]="courseData.visibility">
+              <option value="Public" selected>Public</option>
+              <option value="Private">Private</option>
             </select>
           </div>
         </div>
@@ -175,11 +175,11 @@
              <div class="schedule-block-inner">
                <div>
                 <label for="">Select Date </label>
-                <input type="date" placeholder="Select Date ">
+                <input type="date" placeholder="Select Date" name="scheduleDate" [(ngModel)]="courseData.scheduleDate">
               </div>
               <div>
                 <label for="">Select Time </label>
-                <input type="time" placeholder="Select Time">
+                <input type="time" placeholder="Select Time" name="scheduleTime" [(ngModel)]="courseData.scheduleTime">
                 
               </div>
              </div>
@@ -190,14 +190,14 @@
           <label class="block-lable"> Featured Image </label>
           <div class="box">
             <div class="box-upload">
-              <div *ngIf="thumbnail" class="box-upload__preview-wrap">
-                <img [src]="thumbnail" alt="Thumbnail preview" class="box-upload__img" />
+              <div *ngIf="courseData.thumbnail" class="box-upload__preview-wrap">
+                <img [src]="courseData.thumbnail" alt="Thumbnail preview" class="box-upload__img" />
                 <button class="btn btn-light remove-btn" (click)="removeThumbnail()">
                   <mat-icon>close</mat-icon>
                 </button>
               </div>
 
-              <div *ngIf="!thumbnail" class="box-upload__preview-wrap">
+              <div *ngIf="!courseData.thumbnail" class="box-upload__preview-wrap">
                 <mat-icon>image</mat-icon>
                 <div>
                   <input
@@ -219,14 +219,14 @@
           <label class="block-lable"> Video Intro </label>
           <div class="box">
             <div class="box-upload">
-              <div *ngIf="video" class="box-upload__preview-wrap">
-                <video [src]="video" controls class="box-upload__video"></video>
+              <div *ngIf="courseData.video" class="box-upload__preview-wrap">
+                <video [src]="courseData.video" controls class="box-upload__video"></video>
                 <button class="btn btn-light remove-btn" (click)="removeVideo()">
                   <mat-icon>close</mat-icon>
                 </button>
               </div>
 
-              <div *ngIf="!video" class="box-upload__preview-wrap">
+              <div *ngIf="!courseData.video" class="box-upload__preview-wrap">
                 <mat-icon>videocam</mat-icon>
                 <div>
                   <input
@@ -263,7 +263,6 @@
             "
             >Pricing Model is required</mat-error
           >
-        
         </div>
           @if (courseData.pricing === "paid") {
             <select class="price-select">
@@ -278,9 +277,9 @@
           <label class="block-lable"> Cateogry </label>
           <div class="option">
             <select>
-              <option value="">Public</option>
-              <option value="">Password Protected</option>
-              <option value="">Private</option>
+              <option value="Public">Public</option>
+              <option value="Password Protected">Password Protected</option>
+              <option value="Private">Private</option>
             </select>
           </div>
         </div>
@@ -289,8 +288,8 @@
           <label class="block-lable"> Tags </label>
           <div class="option">
             <select>
-              <option value="">Public</option>
-              <option value="">Private</option>
+              <option value="Public">Public</option>
+              <option value="Private">Private</option>
             </select>
           </div>
         </div>

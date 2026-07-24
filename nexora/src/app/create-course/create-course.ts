@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -6,8 +6,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { filter } from 'rxjs/operators';
 
 
 
@@ -28,18 +29,26 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './create-course.html',
   styleUrls: ['./create-course.scss']
 })
-export class CreateCourseComponent {
+export class CreateCourseComponent implements OnInit {
   @ViewChild('editorArea') editorArea!: ElementRef<HTMLDivElement>;
     courseData = {
     title: '',
     description: '',
-    difficulty: '',
-    pricing: ''
+    difficulty: 'Easy',
+    isPublic:false,
+    isQA:false,
+    visibility:'Public',
+    pricing: '',
+    scheduleDate: '',
+    scheduleTime: '',
+    cateogry:'Public',
+    tags:'Public',
+    thumbnail :'',
+    video:''
   };
-  thumbnail :string|null=null;
-  video:string | null = null;
   isClick:boolean=false;
   isSchedule:boolean=false;
+  isModel:boolean=false;
   plan:string=''
   pricingOffer=['One time pricing only','Subscription only', 'subscription and one time purchase','Membership only']
   activeFormats = {
@@ -50,10 +59,38 @@ export class CreateCourseComponent {
   }
 
   constructor(private router:Router){
-
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      if (event.urlAfterRedirects === '/layout/create') {
+        this.isClick = false;
+      } else if (event.urlAfterRedirects && event.urlAfterRedirects.includes('/layout/create/')) {
+        this.isClick = true;
+      }
+    });
   }
 
-   text(type: string) {
+  ngOnInit() {
+    if (this.router.url !== '/layout/create') {
+      this.isClick = true;
+    }
+    const data = localStorage.getItem('courseData');
+    if (data) {
+      this.courseData = JSON.parse(data);
+      setTimeout(() => {
+        if (this.editorArea && this.editorArea.nativeElement) {
+          this.editorArea.nativeElement.innerHTML = this.courseData.description || '';
+        }
+      }, 0);
+    }
+    const saved = localStorage.getItem('courseData');
+    if (saved) {
+      this.courseData = JSON.parse(saved);
+    }
+  }
+    
+
+  text(type: string) {
     const tool = this.editorArea.nativeElement;
     tool.focus();
     switch (type) {
@@ -97,12 +134,12 @@ export class CreateCourseComponent {
 
     const reader = new FileReader();
     reader.onload = () => {
-      this.thumbnail = reader.result as string;
+      this.courseData.thumbnail = reader.result as string;
     };
     reader.readAsDataURL(file);
   }
   removeThumbnail(){
-   this.thumbnail = null;
+   this.courseData.thumbnail= '';
   }
 
 
@@ -118,26 +155,53 @@ export class CreateCourseComponent {
       return;
     }
 
-    this.video = file.name;
+    this.courseData.video = file.name;
 
-    if (this.video) {
-      URL.revokeObjectURL(this.video);
+    if (this.courseData.video) {
+      URL.revokeObjectURL(this.courseData.video);
     }
-    this.video = URL.createObjectURL(file);
+    this.courseData.video = URL.createObjectURL(file);
   }  
 
   removeVideo(): void {
-    if (this.video) {
-      URL.revokeObjectURL(this.video);
+    if (this.courseData.video) {
+      URL.revokeObjectURL(this.courseData.video);
     }
-    this.video = null;
-    this.video = null;
+    this.courseData.video = '';
   }
- 
-
-  next(){
-    this.isClick=true;
-    this.router.navigate(['layout/create/add-curriculuam/'])
+  
+ next() {
+    this.courseData.description = this.editorArea.nativeElement.innerHTML;
+    localStorage.setItem('courseData', JSON.stringify(this.courseData));
+    console.log(this.courseData);
+    this.isClick = true;
+    this.router.navigate(['layout/create/add-curriculuam/']);
   }
 
+  deleteCourse() {
+    localStorage.removeItem('courseData');
+    this.courseData = {
+      title: '',
+      description: '',
+      difficulty: 'Easy',
+      isPublic: false,
+      isQA: false,
+      visibility: 'Public',
+      pricing: '',
+      scheduleDate: '',
+      scheduleTime: '',
+      cateogry: 'Public',
+      tags: 'Public',
+      thumbnail :'',
+      video:''
+    };
+    if (this.editorArea) {
+      this.editorArea.nativeElement.innerHTML = '';
+    }
+  }
+  edit(){
+    this.editorArea.nativeElement.innerHTML;
+    this.isModel=true
+  }
+  
 }
