@@ -210,6 +210,8 @@ shortQuestions = [
 
 showPopup = false;
 selectedQuestion: any;
+editQuestion: any;
+showEditPopup = false;
 
   delete(index: number) {
       if (this.selectedType === 'MCQ') {
@@ -248,6 +250,24 @@ toggleSelect(question: any, event: any) {
       state: { questions: this.selectedQuestions }
     });
   }
+
+  openEditPopup() {
+    this.showEditPopup = true;
+    this.showPopup = false;
+
+   this.editQuestion = {
+    ...this.selectedQuestion
+  };
+
+  }
+
+  saveEdit() {
+
+  Object.assign(this.selectedQuestion, this.editQuestion);
+
+  this.showEditPopup = false;
+
+}
 
 
 

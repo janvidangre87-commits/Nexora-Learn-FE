@@ -132,31 +132,8 @@ export class CourseService {
       id: 2,
       type: 'description',
       questionText: 'Explain Newton\'s Third Law of Motion with an example.'
-    },
-    {
-      id: 3,
-      type: 'true-false',
-      questionText: 'The acceleration due to gravity on Earth is 9.8 m/s².',
-      correctAnswer: true
-    },
-    {
-      id: 4,
-      type: 'numerical',
-      questionText: '(a+b)^2',
-      correctAnswer:'(a^2+b^2+2ab)'
-    },
-     {
-      id: 5,
-      type: 'short-answer',
-      questionText: '(a+b)^2',
-      correctAnswer:'(a^2+b^2+2ab)'
-    },
-     {
-      id: 4,
-      type: 'fill-blanks',
-      questionText: 'what is your name ',
-      correctAnswer:'hemant'
-    },
+    }
+    
   ];
 
   getQuestions(): Question[] {
