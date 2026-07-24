@@ -19,16 +19,14 @@
                 </select>
             </div>
         </div>
-
+        
         <div>
             <label>Subject</label>
             <select [(ngModel)]="selectedSubject" class="class-select">
                 <option value="">Select Subject</option>
-
                 @for (s of subjectList; track s) {
                 <option [value]="s">{{ s }}</option>
                 }
-
             </select>
         </div>
 
@@ -45,11 +43,9 @@
         </div>
 
     </div>
-
     <div class="button-area">
         <button type="button" (click)="continue()">Continue</button>
     </div>
-
 </div>
 
 } @else {
@@ -134,9 +130,7 @@
 
                     </div>
                 </div>
-
             </div>
-
         </div>
 
         }
@@ -163,11 +157,9 @@
                         <small>Marks:[{{ question.marks }}]</small>
                         <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
                         <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
-
                     </div>
                 </div>
             </div>
-
         </div>
         }
     </div>
@@ -186,7 +178,6 @@
                     <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
                     <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
                 </div>
-
             </div>
         </div>
         }
@@ -216,12 +207,6 @@
 
 </div>
 }
-
-
-
-
-
-
 
 @if(showPopup){
 
@@ -320,7 +305,6 @@
         </div>
 
     </div>
-
 </div>
 
 }

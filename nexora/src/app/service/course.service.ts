@@ -6,6 +6,7 @@ import { ChapterData, ChapterList, ClassData, Question, Topic } from '../model/c
 })
 export class CourseService {
   private showContent: boolean = false;
+  private showImport: boolean=false;
   private contentData: string = '';
 
    private allData: ClassData[] = [
@@ -133,7 +134,6 @@ export class CourseService {
       type: 'description',
       questionText: 'Explain Newton\'s Third Law of Motion with an example.'
     }
-    
   ];
 
   getQuestions(): Question[] {
@@ -183,6 +183,12 @@ export class CourseService {
   }
   getShowContent(): boolean {
     return this.showContent;
+  }
+  setshowImport(value:boolean){
+    this.showImport=value;
+  }
+  getShowImport(): boolean{
+    return this.showImport;
   }
   setContent( data: string |null) {
     this.contentData = data ?? '';

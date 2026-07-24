@@ -5,50 +5,59 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule, MatRadioChange } from '@angular/material/radio';
 import { Router } from '@angular/router';
 import { CourseService } from '../service/course.service';
-import { ChapterData, ChapterList, ClassData } from '../model/course';
-
-
+import { ChapterData, ChapterList, ClassData, Topic } from '../model/course';
 
 @Component({
   selector: 'app-add-lecture',
   standalone: true,
-  imports: [CommonModule,FormsModule, MatIconModule, MatRadioModule],
+  imports: [CommonModule, FormsModule, MatIconModule, MatRadioModule],
   templateUrl: './add-lecture.html',
-  styleUrl: './add-lecture.scss'
+  styleUrl: './add-lecture.scss',
 })
 export class AddLectureComponent {
   @ViewChild('editorArea') editorArea!: ElementRef<HTMLDivElement>;
 
-  title : string = '';
-  thumbnail :string|null=null;
-  video:string | null = null;
-  pdf: string|null=null;
-  sHour: number| null = null;
-  sMin: number| null = null;
-  sSec: number| null = null;
-  eHour: number| null = null;
-  eMin: number| null = null;
-  eSec: number| null = null;
+  lectureData = {
+    title: '',
+    discription: '',
+    thumbnail: '',
+    video: '',
+    pdf: '',
+    sHour: null,
+    sMin: null,
+    sSec: null,
+    eHour: null,
+    eMin: null,
+    eSec: null,
+  };
 
+  isUpload: boolean = false;
+  isImport: boolean = false;
+  isClick: boolean = false;
+  isModule: boolean = false;
+  isShowImport: boolean = false;
+  selectedTopics: Topic[] = [];
 
-  isUpload:boolean=false;
-  isImport:boolean=false;
-
-  isClick:boolean=false;
-  isModule:boolean=false;
   activeFormats = {
     bold: false,
     italic: false,
     underline: false,
-    strikeThrough: false
-  }
-    
-  constructor(private router:Router, private courseService: CourseService){}
+    strikeThrough: false,
+  };
+
+  constructor(
+    private router: Router,
+    private courseService: CourseService,
+  ) {}
 
   ngOnInit() {
+    const data = localStorage.getItem('selectedTopics');
+    if (data) {
+      this.selectedTopics = JSON.parse(data);
+    }
+    this.isShowImport = this.courseService.getShowImport();
     this.allData = this.courseService.getAllClasses();
   }
-  
 
   text(type: string) {
     const tool = this.editorArea.nativeElement;
@@ -58,7 +67,7 @@ export class AddLectureComponent {
         tool.style.fontWeight = tool.style.fontWeight === 'bold' ? 'normal' : 'bold';
         break;
       case 'italic':
-        tool.style.fontStyle = tool.style.fontStyle === 'italic' ? 'normal' : 'italic'; 
+        tool.style.fontStyle = tool.style.fontStyle === 'italic' ? 'normal' : 'italic';
         break;
       case 'underline':
         tool.style.textDecorationLine =
@@ -82,27 +91,39 @@ export class AddLectureComponent {
       this.execCmd('insertImage', url);
     }
   }
-
+  thumbnailError = '';
 
   onFileSelect(event: Event): void {
     const input = event.target as HTMLInputElement | null;
     if (!input?.files?.length) {
+      this.thumbnailError = 'Image recquired';
+      this.lectureData.thumbnail = '';
       return;
     }
 
     const file = input.files[0];
     console.log(file.name);
 
+    const maxSize = 2 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+      this.thumbnailError = 'Image size must be less than 2 MB.';
+      this.lectureData.thumbnail = '';
+      input.value = '';
+      return;
+    }
+
+    this.thumbnailError = '';
+
     const reader = new FileReader();
     reader.onload = () => {
-      this.thumbnail = reader.result as string;
+      this.lectureData.thumbnail = reader.result as string;
     };
     reader.readAsDataURL(file);
   }
-  removeThumbnail(){
-   this.thumbnail = null;
+  removeThumbnail() {
+    this.lectureData.thumbnail = '';
   }
-
 
   onVideoSelect(event: Event): void {
     const input = event.target as HTMLInputElement | null;
@@ -116,71 +137,47 @@ export class AddLectureComponent {
       return;
     }
 
-    this.video = file.name;
+    this.lectureData.video = file.name;
 
-    if (this.video) {
-      URL.revokeObjectURL(this.video);
+    if (this.lectureData.video) {
+      URL.revokeObjectURL(this.lectureData.video);
     }
-    this.video = URL.createObjectURL(file);
-  }  
-
-  removeVideo(): void {
-    if (this.video) {
-      URL.revokeObjectURL(this.video);
-    }
-    this.video = null;
-    this.video = null;
+    this.lectureData.video = URL.createObjectURL(file);
   }
 
+  removeVideo(): void {
+    if (this.lectureData.video) {
+      URL.revokeObjectURL(this.lectureData.video);
+    }
+    this.lectureData.video = '';
+  }
 
-  onPfdSelect(pdfFile:Event){
-    
+  onPfdSelect(pdfFile: Event) {
     const input = pdfFile.target as HTMLInputElement | null;
     if (!input?.files?.length) {
       return;
     }
-    let file= input.files[0];
-    
-    this.pdf =file.name;
-    console.log(this.pdf)
+    let file = input.files[0];
+
+    this.lectureData.pdf = file.name;
+    console.log(this.lectureData.pdf);
   }
-  onRadioChange(events: MatRadioChange){
-    if (this.isUpload=true) {
+  onRadioChange(events: MatRadioChange) {
+    if ((this.isUpload = true)) {
       this.isUpload = events.value === '2';
     }
-    if (this.isImport=true) {
-      this.isImport=events.value=== '1';
+    if ((this.isImport = true)) {
+      this.isImport = events.value === '1';
     }
   }
-
-  saveData() {
-    const lectureData = {
-      title: this.title,
-      description:this.editorArea.nativeElement.innerHTML, 
-      thumbnail: this.thumbnail,
-      video: this.video,
-      pdf: this.pdf,
-      class: this.selectedClass,
-      chapter: this.selectedChapter,
-      subject: this.selectedSubject,
-      sHour: this.sHour,
-      sMin: this.sMin,
-      sSec: this.sSec,
-      eHour: this.eHour,
-      eMin: this.eMin,
-      eSec: this.eSec
-    };
-    console.log("Lecture Data", lectureData);
-    localStorage.setItem("lectureData", JSON.stringify(lectureData));
-
+  onAdd() {
+    this.lectureData.discription = this.editorArea.nativeElement.innerHTML;
+    localStorage.setItem('lectureData', JSON.stringify(this.lectureData));
+    console.log(this.lectureData);
+    this.courseService.setShowContent(true);
+    this.courseService.setContent(this.lectureData.pdf ?? '');
+    this.router.navigate(['layout/create/create-new-section']);
   }
-  onAdd(){
-    this.saveData();
-    this.courseService.setShowContent(true);  
-    this.courseService.setContent(this.pdf?? '')
-    this.router.navigate(['layout/create/create-new-section'])
-  }
-
 
   allData: ClassData[] = [];
   selectedClass: string = '';
@@ -198,17 +195,26 @@ export class AddLectureComponent {
   }
 
   onSubjectChange() {
-    this.availableChapters = this.courseService.getChaptersBySubject(this.availableSubjects, this.selectedSubject);
+    this.availableChapters = this.courseService.getChaptersBySubject(
+      this.availableSubjects,
+      this.selectedSubject,
+    );
     this.selectedChapter = '';
   }
 
   next() {
-    console.log("next clicked");
+    const select = {
+      class: this.selectedClass,
+      subject: this.selectedChapter,
+      chapter: this.selectedChapter,
+    };
+    localStorage.setItem('select', JSON.stringify(select));
+    console.log('next clicked');
     this.router.navigate(['layout/create/import-notes']);
   }
-  onAddlecture(){
-    
-    this.router.navigate(['layout/create/create-new-section'])
+
+  onAddlecture() {
+    this.router.navigate(['layout/create/create-new-section']);
   }
 
 }

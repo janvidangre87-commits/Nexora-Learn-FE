@@ -8,8 +8,15 @@
           placeholder="New Course"
           name="title"
           [(ngModel)]="sectionData.title"
+          #title="ngModel"
           required
+          minlength="4"
         />
+        @if (title.invalid && (title.dirty || title.touched)) {
+          <small style="color: red;">
+            Minimum 4 letters title required
+          </small>
+        }
       </div>
 
       <div class="bolck">

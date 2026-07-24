@@ -268,7 +268,4 @@ toggleSelect(question: any, event: any) {
   this.showEditPopup = false;
 
 }
-
-
-
 }

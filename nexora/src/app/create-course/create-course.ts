@@ -39,6 +39,7 @@ export class CreateCourseComponent implements OnInit {
     isQA:false,
     visibility:'Public',
     pricing: '',
+    pricingType:'',
     scheduleDate: '',
     scheduleTime: '',
     cateogry:'Public',
@@ -46,7 +47,8 @@ export class CreateCourseComponent implements OnInit {
     thumbnail :'',
     video:''
   };
-  isClick:boolean=false;
+  showForm:boolean = true;
+  
   isSchedule:boolean=false;
   isModel:boolean=false;
   plan:string=''
@@ -59,37 +61,29 @@ export class CreateCourseComponent implements OnInit {
   }
 
   constructor(private router:Router){
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      if (event.urlAfterRedirects === '/layout/create') {
-        this.isClick = false;
-      } else if (event.urlAfterRedirects && event.urlAfterRedirects.includes('/layout/create/')) {
-        this.isClick = true;
-      }
-    });
+    
   }
 
   ngOnInit() {
-    if (this.router.url !== '/layout/create') {
-      this.isClick = true;
-    }
+     this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe(() => {
+      this.showForm = this.router.url === '/layout/create';
+    });
+
+  this.showForm = this.router.url === '/layout/create';
     const data = localStorage.getItem('courseData');
     if (data) {
       this.courseData = JSON.parse(data);
-      setTimeout(() => {
-        if (this.editorArea && this.editorArea.nativeElement) {
-          this.editorArea.nativeElement.innerHTML = this.courseData.description || '';
-        }
-      }, 0);
-    }
-    const saved = localStorage.getItem('courseData');
-    if (saved) {
-      this.courseData = JSON.parse(saved);
+     setTimeout(() => {
+      if (this.editorArea) {
+        this.editorArea.nativeElement.innerHTML =
+          this.courseData.description || '';
+      }
+    });
     }
   }
     
-
   text(type: string) {
     const tool = this.editorArea.nativeElement;
     tool.focus();
@@ -174,7 +168,6 @@ export class CreateCourseComponent implements OnInit {
     this.courseData.description = this.editorArea.nativeElement.innerHTML;
     localStorage.setItem('courseData', JSON.stringify(this.courseData));
     console.log(this.courseData);
-    this.isClick = true;
     this.router.navigate(['layout/create/add-curriculuam/']);
   }
 
@@ -188,6 +181,7 @@ export class CreateCourseComponent implements OnInit {
       isQA: false,
       visibility: 'Public',
       pricing: '',
+      pricingType:'',
       scheduleDate: '',
       scheduleTime: '',
       cateogry: 'Public',

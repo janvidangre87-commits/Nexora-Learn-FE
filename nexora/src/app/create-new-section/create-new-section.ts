@@ -17,16 +17,15 @@ export class CreateNewSection implements OnInit{
   pdfName: string = '';
   selectedQuestions: any[] = [];
 
-   constructor(private router:Router,private courseservice:CourseService){}
+  constructor(private router:Router,private courseservice:CourseService){}
   ngOnInit(): void {
     this.isShowContent=this.courseservice.getShowContent();
     this.pdfName=this.courseservice.getContentData();
     this.selectedQuestions = history.state?.questions ?? []; 
-     const saved = localStorage.getItem('lectureData');
+    const saved = localStorage.getItem('lectureData');
     
     if (saved) {
-      this.lectureData = JSON.parse(saved);   
-      console.log(this.lectureData);           
+      this.lectureData = JSON.parse(saved);              
     }
   }
   addLecture(){
