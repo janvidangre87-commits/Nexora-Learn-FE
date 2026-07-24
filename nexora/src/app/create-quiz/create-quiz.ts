@@ -10,67 +10,72 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CourseService } from '../service/course.service';
 import { ChapterData, ChapterList, ClassData, Question, Topic } from '../model/course';
 import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox";
-import { MatRadioButton } from '@angular/material/radio';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { Router } from '@angular/router';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-create-quiz',
-  imports: [MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatRadioButton, MatCheckbox,MatExpansionModule,MatSlideToggleModule],
+  imports: [MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatRadioButton, MatCheckbox, MatExpansionModule, MatSlideToggleModule, MatRadioGroup],
   templateUrl: './create-quiz.html',
   styleUrl: './create-quiz.scss',
 })
-export class CreateQuiz implements OnInit{
+export class CreateQuiz implements OnInit {
   myControl = new FormControl('MCQ');
-  options: string[] = ['MCQ', 'True/False', 'Numerical','Short Answer','Fill in the blancks'];
+  options: string[] = ['MCQ', 'True/False', 'Numerical', 'Short Answer', 'Fill in the blancks'];
   filteredOptions: Observable<string[]>;
-  questions:Question[]=[];
-  selectedQue:Question[]|null=null;
+  questions: Question[] = [];
+  selectedQue: Question[] | null = null;
 
-  selectedType: string = 'MCQ';  
-  currentOptions: string[] = ['', '', '', ''];   
+  selectedType: string = 'MCQ';
+  currentOptions: string[] = ['', '', '', ''];
   correctAnswer: any = null;
   uploadToQuestionSet: boolean = false;
-  isSetting:boolean=false;
+  isSetting: boolean = false;
+  selectedIndex: number = -1;
+  showOptionError = false;
+  showAnswerError = false;
+  titleError = false;
+  title = '';
 
   readonly panelOpenState = signal(false);
 
-  constructor(private courseService:CourseService, private router:Router ) {
+  constructor(private courseService: CourseService, private router: Router) {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith('MCQ'),
       map((value) => this._filter(value || '')),
     );
   }
   ngOnInit(): void {
-    this.allData = this.courseService.getAllClasses();  
-    this.questions=this.courseService.getQuestions();
-     this.myControl.valueChanges.subscribe(value => {
-    if (this.options.includes(value ?? '')) {
-      this.selectedType = value as string;
-      this.resetFields();
-    }
-  });
+    this.allData = this.courseService.getAllClasses();
+    this.questions = this.courseService.getQuestions();
+    this.myControl.valueChanges.subscribe(value => {
+      if (this.options.includes(value ?? '')) {
+        this.selectedType = value as string;
+        this.resetFields();
+      }
+    });
   }
 
-  onSetting(){
-    this.isSetting=true
+  onSetting() {
+    this.isSetting = true
   }
 
   resetFields() {
-  this.currentOptions = ['', '', '', ''];
-  this.correctAnswer = null;
+    this.currentOptions = ['', '', '', ''];
+    this.correctAnswer = null;
   }
 
-  
+
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.options.filter((option) => option.toLowerCase().includes(filterValue));
   }
- @ViewChild('editorArea') editorArea!: ElementRef<any>;
+  @ViewChild('editorArea') editorArea!: ElementRef<any>;
   text(type: string) {
     const tool = this.editorArea.nativeElement;
     tool.focus();
@@ -79,7 +84,7 @@ export class CreateQuiz implements OnInit{
         tool.style.fontWeight = tool.style.fontWeight === 'bold' ? 'normal' : 'bold';
         break;
       case 'italic':
-        tool.style.fontStyle = tool.style.fontStyle === 'italic' ? 'normal' : 'italic'; 
+        tool.style.fontStyle = tool.style.fontStyle === 'italic' ? 'normal' : 'italic';
         break;
       case 'underline':
         tool.style.textDecorationLine =
@@ -104,62 +109,102 @@ export class CreateQuiz implements OnInit{
     }
   }
 
+  currentQuestion: any = {
+    id: 0,
+    type: 'MCQ',
+    questionText: '',
+    description: '',
+    answerDescription: '',
+    options: ['', '', '', ''],
+    correctAnswer: null
+  };
+  selectQuestion(q: any, index: number) {
+    // this.currentQuestion = q; 
+    this.selectedIndex = index;
+    this.currentQuestion = {
+      ...q,
+      options: [...q.options]
+    };
+    this.selectedType = q.type;
 
-  addQuestion() {
-  let newQuestion: Question;
-    
-  switch (this.selectedType) {
-    case 'MCQ':
-      newQuestion = {
-        id: this.questions.length + 1,
-        type: 'mcq',
-        questionText: '',
-        options: ['', '', '', '']
-      };
-      break;
-
-    case 'True/False':
-      newQuestion = {
-        id: this.questions.length + 1,
-        type: 'true-false',
-        questionText: '',
-        correctAnswer: undefined
-      };
-      break;
-
-    case 'Numerical':
-      newQuestion = {
-        id: this.questions.length + 1,
-        type: 'numerical',
-        questionText: '',
-        correctAnswer: undefined
-      };
-      break;
-
-    case 'Short Answer':
-      newQuestion = {
-        id: this.questions.length + 1,
-        type: 'short-answer',
-        questionText: '',
-        correctAnswer: ''
-      };
-      break;
-
-    case 'Fill in the blancks':
-      newQuestion = {
-        id: this.questions.length + 1,
-        type: 'fill-blanks',
-        questionText: '',
-        correctAnswer: ''
-      };
-      break;
-
-    default:
-      return;
+    if (q.type === 'MCQ') {
+      this.currentOptions = [...q.options];
+      this.correctAnswer = this.currentOptions.indexOf(q.correctAnswer);
+    } else {
+      this.currentOptions = ['', '', '', ''];
+      this.correctAnswer = q.correctAnswer;
+    }
   }
 
-  this.questions.push(newQuestion);
-  this.selectedQue = [newQuestion];
+
+  addQuestion() {
+
+    this.showOptionError = false;
+    this.showAnswerError = false;
+
+
+    if (this.selectedType === 'MCQ') {
+      this.showOptionError = this.currentOptions.some(
+        option => !option || option.trim() === ''
+      );
+
+      if (this.showOptionError) {
+        return;
+      }
+    }
+
+
+    // if (
+    //   (this.selectedType === 'MCQ' ||
+    //     this.selectedType === 'True/False') &&
+    //   this.correctAnswer === null
+    // ) {
+    //   this.showAnswerError = true;
+    //   return;
+    // }
+    if (
+      this.correctAnswer === null ||
+      this.correctAnswer === '' ||
+      (typeof this.correctAnswer === 'string' &&
+        this.correctAnswer.trim() === '')
+    ) {
+      this.showAnswerError = true;
+      return;
+    }
+
+    this.currentQuestion.id = this.questions.length + 1;
+    this.currentQuestion.type = this.selectedType;
+
+    if (this.selectedType === 'MCQ') {
+      this.currentQuestion.options = [...this.currentOptions];
+      this.currentQuestion.correctAnswer =
+        this.currentOptions[this.correctAnswer];
+    } else {
+      this.currentQuestion.options = [];
+      this.currentQuestion.correctAnswer = this.correctAnswer;
+    }
+
+    this.questions.push({
+      ...this.currentQuestion,
+      options: [...this.currentOptions]
+    });
+
+
+    localStorage.setItem('questions', JSON.stringify(this.questions));
+    console.log('All Questions:', this.questions);
+
+    this.currentQuestion = {
+      id: 0,
+      type: this.selectedType,
+      questionText: '',
+      description: '',
+      answerDescription: '',
+      options: ['', '', '', ''],
+      correctAnswer: null
+    };
+
+    this.currentOptions = ['', '', '', ''];
+    this.correctAnswer = null;
   }
   onChecked(event: MatCheckboxChange) {
     console.log('Checked:', event.checked);
@@ -168,42 +213,72 @@ export class CreateQuiz implements OnInit{
 
 
   allData: ClassData[] = [];
-    
-  
+
+
   selectedClass: string = '';
   selectedSubject: string = '';
   selectedChapter: string = '';
-  selectedTopics:string = '';
+  selectedTopics: string = '';
   selectedTopicContent: string = '';
   isChecked: boolean = false;
-    
+
   availableSubjects: ChapterList[] = [];
   availableChapters: ChapterData[] = [];
-  availableTopics: Topic[]=[]
-    
+  availableTopics: Topic[] = []
+
   onClassChange() {
     this.availableSubjects = this.courseService.getSubjectsByClass(this.selectedClass);
     this.selectedSubject = '';
     this.selectedChapter = '';
-    this.selectedTopics='';
+    this.selectedTopics = '';
     this.availableChapters = [];
-    this.availableTopics=[];
+    this.availableTopics = [];
   }
-    
-    onSubjectChange() {
-      this.availableChapters = this.courseService.getChaptersBySubject(this.availableSubjects, this.selectedSubject);
-      this.selectedChapter = '';
-      this.selectedTopics='';
-      this.availableTopics=[];  
-      this.availableTopics = [];
+
+  onSubjectChange() {
+    this.availableChapters = this.courseService.getChaptersBySubject(this.availableSubjects, this.selectedSubject);
+    this.selectedChapter = '';
+    this.selectedTopics = '';
+    this.availableTopics = [];
+    this.availableTopics = [];
+  }
+
+  onChapterChange() {
+    this.availableTopics = this.courseService.getTopicsByChapter(this.availableChapters, this.selectedChapter); this.selectedTopics = '';
+  }
+
+  onUpload() {
+    this.router.navigate(['layout/create/create-new-section'])
+  }
+
+  deleteQuestion() {
+
+    if (this.selectedIndex === -1) {
+      console.log("question is not selected");
+      return;
     }
-  
-    onChapterChange(){
-       this.availableTopics = this.courseService.getTopicsByChapter(this.availableChapters, this.selectedChapter);         this.selectedTopics = '';
-    }
-  
-    onUpload(){
-      this.router.navigate(['layout/create/create-new-section'])
-    }
+
+    this.questions.splice(this.selectedIndex, 1);
+
+    localStorage.setItem('questions', JSON.stringify(this.questions));
+
+    this.selectedIndex = -1;
+
+    this.currentQuestion = {
+      id: 0,
+      type: this.selectedType,
+      questionText: '',
+      description: '',
+      answerDescription: '',
+      options: ['', '', '', ''],
+      correctAnswer: null
+    };
+
+    this.currentOptions = ['', '', '', ''];
+    this.correctAnswer = null;
+    this.showOptionError = false;
+    this.showAnswerError = false;
+
+  }
 
 }

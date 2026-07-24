@@ -117,6 +117,7 @@ button:hover {
 }
 
 .popup {
+    overflow-y: auto;
     width: 500px;
     background: white;
     padding: 20px;
@@ -186,4 +187,47 @@ button:hover {
     font-weight: 500;
     font-size: 15px;
 }
+
+.edit{
+    display: flex;
+    align-items: start;
+    justify-content: left;
+    margin: 10px;
+}
+
+.popup-edit{
+    margin-top: 20px;
+    overflow-y: auto;
+    width: 500px;
+    background: white;
+    padding: 20px;
+    max-height: 70vh;
+
+
+}
+.popup-edit h4 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.popup-edit label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.popup-edit input,
+.popup-edit textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cfcfcf;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
 

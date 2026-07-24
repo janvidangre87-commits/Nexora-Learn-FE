@@ -125,13 +125,8 @@
                     @for (option of question.options; track option; let j = $index) {
                     <div>
                         <span>{{j+1}} ) {{ option }}</span>
-
-
                     </div>
                     }
-
-
-
                     <div class="icons">
                         <span>Marks:[{{ question.marks }}]</span>
                         <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
@@ -164,9 +159,6 @@
                             <li>False</li>
                         </ul>
                     </div>
-
-
-
                     <div class="icons">
                         <small>Marks:[{{ question.marks }}]</small>
                         <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
@@ -177,90 +169,47 @@
             </div>
 
         </div>
-    }
+        }
     </div>
     }
 
 
     @else if(selectedType == "Numerical") {
-
     <div class="alignment">
         @for (question of numericalQuestions; track question; let i = $index) {
-
         <div class="question-box">
             <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
-
-
-
             <div class="question">
-
-
                 <p>{{ question.question }}</p>
-                <!-- <div class="options"> -->
-
-
-
-
                 <div class="icons">
                     <small>Marks:[{{ question.marks }}]</small>
                     <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
                     <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
-
                 </div>
-                <!-- </div> -->
+
             </div>
-
         </div>
-
-
-
         }
     </div>
 
     } @else if(selectedType == "Short") {
     <div class="alignment">
         @for (question of shortQuestions; track question; let i = $index) {
-
         <div class="question-box">
             <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
-
-
-
             <div class="question">
-
-
                 <p>{{ question.question }}</p>
-                <!-- <div class="options"> -->
                 <label>[ ]</label>
-
-
-
-
                 <div class="icons">
                     <small>Marks:[{{ question.marks }}]</small>
                     <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
                     <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
-
                 </div>
-                <!-- </div> -->
             </div>
-
         </div>
-
-
-
         }
     </div>
-
-
     }
-
-
-
-
-
-
-    <!-- </div> -->
     <div class="button-area">
         <button type="button" (click)="addSelectedQuestions()">Add</button>
     </div>
@@ -282,7 +231,10 @@
 
         <button class="close-btn" (click)="closePopup()">✖</button>
         <div class="dash-border">
-            <div class="selectedType">{{selectedType}}</div>
+            <div class="edit">
+                <div class="selectedType">{{selectedType}}</div>
+                <button type="button" style="margin-left: 50px; height: 40px;" (click)="openEditPopup()">Edit</button>
+            </div>
             <h6 style="width: 92%; font-weight: 500;">{{ selectedQuestion.question }}</h6>
 
             @for(option of selectedQuestion.options; track option; let i = $index){
@@ -290,9 +242,6 @@
             }
 
         </div>
-
-
-
         <table class="details-table">
             <tr>
                 <th>Exam</th>
@@ -317,13 +266,58 @@
             <span>Answer :</span>
             <span class="font-pink">{{ selectedQuestion.ans }}</span>
         </p>
-
         <p style="margin: auto;">Explanation :</p>
-
         <p class="font-pink">
             {{ selectedQuestion.explantion }}
         </p>
+    </div>
 
+</div>
+
+}
+
+@if(showEditPopup) {
+<div class="popup-over">
+
+    <div class="popup-edit">
+        <h4>Edit Question</h4>
+        <label>Question</label>
+        <input type="text" [(ngModel)]="editQuestion.question">
+        @if(selectedType=="MCQ"){
+        <label>Option A</label>
+        <input [(ngModel)]="editQuestion.options[0]">
+        <label>Option B</label>
+        <input [(ngModel)]="editQuestion.options[1]">
+        <label>Option C</label>
+        <input [(ngModel)]="editQuestion.options[2]">
+        <label>Option D</label>
+        <input [(ngModel)]="editQuestion.options[3]">
+        }
+        <label>Answer</label>
+        <input [(ngModel)]="editQuestion.ans">
+        <label>Marks</label>
+        <input [(ngModel)]="editQuestion.marks">
+        <label>Exam</label>
+        <input [(ngModel)]="editQuestion.exam">
+        <label>Class</label>
+        <input [(ngModel)]="editQuestion.class">
+        <label>Subject</label>
+        <input [(ngModel)]="editQuestion.subject">
+        <label>Topic</label>
+        <input [(ngModel)]="editQuestion.topic">
+        <label>Difficulty</label>
+        <input [(ngModel)]="editQuestion.difficulty">
+        <label>Explanation</label>
+
+        <textarea [(ngModel)]="editQuestion.explantion"></textarea>
+
+        <div class="button-area">
+
+            <button (click)="saveEdit()">
+                Save
+            </button>
+
+        </div>
 
     </div>
 
