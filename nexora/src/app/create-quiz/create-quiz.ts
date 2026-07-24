@@ -88,7 +88,6 @@ export class CreateQuiz implements OnInit{
 
     return this.options.filter((option) => option.toLowerCase().includes(filterValue));
   }
-  @ViewChild('editorArea') editorArea!: ElementRef<any>;
   text(type: string) {
     const tool = this.editorArea.nativeElement;
     tool.focus();
