@@ -98,28 +98,24 @@ $color-block:rgb(239, 234, 229);
 
 #add-btn{
     margin-top: 50px;
-
     display: flex;
     justify-content: end;
     align-items: end;
 }
 
 .show-lecture-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 10px;
     border: 2px solid $border-bg;
     border-radius: 10px;
     background-color: rgb(237, 235, 235);
-    padding: 10px;
+    padding: 10px 25px;
     margin-left: 50px;
     margin-right: 70px; 
 
 }
-// .show-lecture{
-//     margin: 10px;
-//     padding: 10px;
-//     margin-left: 50px;
-//     margin-right: 70px;  
-// }
 
 
 

@@ -7,6 +7,9 @@ $border-bg: gray;
     display: flex;
     justify-content: center;
 }
+.course-card{
+    margin: 25px;
+}
 .box{
     background: $color-bg;
     margin-top: 7rem;
@@ -23,4 +26,47 @@ $border-bg: gray;
 }
 .btn{
     background-color: $btn-color;
+    &-cross{
+        font-weight: 500;
+        float: right;
+        background-color: rgb(252, 62, 62);
+    }
+}
+
+.popup-over {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;   
+}
+.model{
+    font-size: 18px;
+    padding: 10px 20px;
+    &-title{
+        span{
+            margin-left: 10px;
+        }
+        padding: 10px;
+    }
+    &-options{
+        padding: 10px;
+        display: flex;
+        gap: 30px;
+    }
+    &-actions{
+        margin-top: 15px;
+        display: flex;
+        justify-content: right;
+        gap: 25px;
+    }
 }

@@ -1,4 +1,4 @@
-@if (isClick) {
+@if (!showForm ) {
   <router-outlet></router-outlet>
 } @else {
   <div class="create-course-page">
@@ -16,11 +16,13 @@
             placeholder="New Course"
             name="title"
             [(ngModel)]="courseData.title"
+            #title="ngModel"
             required
+            minlength="4"
           />
           <mat-error
             *ngIf="courseForm.controls['title']?.invalid && courseForm.controls['title']?.touched"
-            >Title is required</mat-error
+            style="color: red;">Minimum 4 charcter Title is required</mat-error
           >
         </div>
 
@@ -169,8 +171,9 @@
         <div class="block">
           <div class="schedule-block">
             <span>Schedule</span>
-            <mat-slide-toggle name="isSchedule" [(ngModel)]="isSchedule" ></mat-slide-toggle>
+            <mat-slide-toggle name="isSchedule" [(ngModel)]="isSchedule" #schedule="ngModel" required></mat-slide-toggle>
           </div>
+          
           @if (isSchedule) {
              <div class="schedule-block-inner">
                <div>
@@ -183,6 +186,10 @@
                 
               </div>
              </div>
+            }@else {
+              <small style="color: red;">
+              Must set Schedule 
+          </small>
             }
         </div>
 
@@ -192,7 +199,7 @@
             <div class="box-upload">
               <div *ngIf="courseData.thumbnail" class="box-upload__preview-wrap">
                 <img [src]="courseData.thumbnail" alt="Thumbnail preview" class="box-upload__img" />
-                <button class="btn btn-light remove-btn" (click)="removeThumbnail()">
+                <button type="button" class="btn btn-light remove-btn" (click)="removeThumbnail()">
                   <mat-icon>close</mat-icon>
                 </button>
               </div>
@@ -221,7 +228,7 @@
             <div class="box-upload">
               <div *ngIf="courseData.video" class="box-upload__preview-wrap">
                 <video [src]="courseData.video" controls class="box-upload__video"></video>
-                <button class="btn btn-light remove-btn" (click)="removeVideo()">
+                <button type="button" class="btn btn-light remove-btn" (click)="removeVideo()">
                   <mat-icon>close</mat-icon>
                 </button>
               </div>
@@ -252,6 +259,7 @@
             aria-label="Select an option"
             name="pricing"
             [(ngModel)]="courseData.pricing"
+            #pricing ="ngModel"
             required
           >
             <mat-radio-button value="free">Free</mat-radio-button>
@@ -261,13 +269,14 @@
             *ngIf="
               courseForm.controls['pricing']?.invalid && courseForm.controls['pricing']?.touched
             "
-            >Pricing Model is required</mat-error
+            style="color: red;">Pricing Model is required</mat-error
           >
         </div>
           @if (courseData.pricing === "paid") {
-            <select class="price-select">
+            <select class="price-select" name="pricingType" [(ngModel)]="courseData.pricingType">
+              <option value="Subscription only">Subscription only</option>
               @for (offer of pricingOffer; track $index) {
-                <option value=""[selected]="pricingOffer[3]">{{offer}}</option>
+                <option [value]="offer">{{offer}}</option>
 
               }
             </select>
@@ -276,7 +285,7 @@
         <div class="block">
           <label class="block-lable"> Cateogry </label>
           <div class="option">
-            <select>
+            <select name="cateogry" [(ngModel)]="courseData.cateogry">
               <option value="Public">Public</option>
               <option value="Password Protected">Password Protected</option>
               <option value="Private">Private</option>
@@ -287,7 +296,7 @@
         <div class="block">
           <label class="block-lable"> Tags </label>
           <div class="option">
-            <select>
+            <select name="tags" [(ngModel)]="courseData.tags">
               <option value="Public">Public</option>
               <option value="Private">Private</option>
             </select>

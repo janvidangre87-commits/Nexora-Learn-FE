@@ -62,10 +62,10 @@
       @for (topic of availableTopics; track topic.topicName) {
         <div class="topics-box">
           <div class="checkbox">
-            <input type="checkbox" />
+            <input type="checkbox"  (change)="onTopicSelect($event, topic)"/>
           </div>
           <div class="topic-item">
-            <h4>{{ topic.topicName }}</h4>
+            <h5>{{ topic.topicName }}</h5>
             <p>{{ topic.content }}</p>
           </div>
         </div>
@@ -73,7 +73,7 @@
     </div>
   }
 
-  <div style="display: flex; justify-content: center; gap: 15px">
+  <div style="display: flex; justify-content: center; gap: 15px; margin-top: 5rem;">
     <button type="button" class="btn btn-outline-dark">Cancle</button>
     <button type="submit" class="btn add-lecture-btn" (click)="onClick()">Add lecture</button>
   </div>

@@ -19,16 +19,14 @@
                 </select>
             </div>
         </div>
-
+        
         <div>
             <label>Subject</label>
             <select [(ngModel)]="selectedSubject" class="class-select">
                 <option value="">Select Subject</option>
-
                 @for (s of subjectList; track s) {
                 <option [value]="s">{{ s }}</option>
                 }
-
             </select>
         </div>
 
@@ -45,11 +43,9 @@
         </div>
 
     </div>
-
     <div class="button-area">
         <button type="button" (click)="continue()">Continue</button>
     </div>
-
 </div>
 
 } @else {
@@ -125,13 +121,8 @@
                     @for (option of question.options; track option; let j = $index) {
                     <div>
                         <span>{{j+1}} ) {{ option }}</span>
-
-
                     </div>
                     }
-
-
-
                     <div class="icons">
                         <span>Marks:[{{ question.marks }}]</span>
                         <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
@@ -139,9 +130,7 @@
 
                     </div>
                 </div>
-
             </div>
-
         </div>
 
         }
@@ -164,18 +153,13 @@
                             <li>False</li>
                         </ul>
                     </div>
-
-
-
                     <div class="icons">
                         <small>Marks:[{{ question.marks }}]</small>
                         <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
                         <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
-
                     </div>
                 </div>
             </div>
-
         </div>
     }
     </div>
@@ -189,31 +173,18 @@
 
         <div class="question-box">
             <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
-
-
-
             <div class="question">
 
-
                 <p>{{ question.question }}</p>
-                <!-- <div class="options"> -->
-
-
-
-
                 <div class="icons">
                     <small>Marks:[{{ question.marks }}]</small>
                     <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
                     <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
 
                 </div>
-                <!-- </div> -->
             </div>
 
         </div>
-
-
-
         }
     </div>
 
@@ -223,56 +194,27 @@
 
         <div class="question-box">
             <mat-checkbox (change)="toggleSelect(question, $event)"></mat-checkbox>
-
-
-
             <div class="question">
-
-
                 <p>{{ question.question }}</p>
-                <!-- <div class="options"> -->
                 <label>[ ]</label>
-
-
-
-
                 <div class="icons">
                     <small>Marks:[{{ question.marks }}]</small>
                     <mat-icon (click)="delete(i)" style="cursor: pointer;">delete</mat-icon>
                     <mat-icon (click)="openPopup(question)" style="cursor:pointer">more_vert</mat-icon>
 
                 </div>
-                <!-- </div> -->
             </div>
 
         </div>
-
-
-
         }
     </div>
-
-
     }
-
-
-
-
-
-
-    <!-- </div> -->
     <div class="button-area">
         <button type="button" (click)="addSelectedQuestions()">Add</button>
     </div>
 
 </div>
 }
-
-
-
-
-
-
 
 @if(showPopup){
 
@@ -290,9 +232,6 @@
             }
 
         </div>
-
-
-
         <table class="details-table">
             <tr>
                 <th>Exam</th>
@@ -323,10 +262,7 @@
         <p class="font-pink">
             {{ selectedQuestion.explantion }}
         </p>
-
-
     </div>
-
 </div>
 
 }
