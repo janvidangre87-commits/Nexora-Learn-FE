@@ -19,9 +19,17 @@ import { ChapterData, ChapterList, ClassData } from '../model/course';
 export class AddLectureComponent {
   @ViewChild('editorArea') editorArea!: ElementRef<HTMLDivElement>;
 
+  title : string = '';
   thumbnail :string|null=null;
   video:string | null = null;
   pdf: string|null=null;
+  sHour: number| null = null;
+  sMin: number| null = null;
+  sSec: number| null = null;
+  eHour: number| null = null;
+  eMin: number| null = null;
+  eSec: number| null = null;
+
 
   isUpload:boolean=false;
   isImport:boolean=false;
@@ -144,7 +152,30 @@ export class AddLectureComponent {
       this.isImport=events.value=== '1';
     }
   }
+
+  saveData() {
+    const lectureData = {
+      title: this.title,
+      description:this.editorArea.nativeElement.innerHTML, 
+      thumbnail: this.thumbnail,
+      video: this.video,
+      pdf: this.pdf,
+      class: this.selectedClass,
+      chapter: this.selectedChapter,
+      subject: this.selectedSubject,
+      sHour: this.sHour,
+      sMin: this.sMin,
+      sSec: this.sSec,
+      eHour: this.eHour,
+      eMin: this.eMin,
+      eSec: this.eSec
+    };
+    console.log("Lecture Data", lectureData);
+    localStorage.setItem("lectureData", JSON.stringify(lectureData));
+
+  }
   onAdd(){
+    this.saveData();
     this.courseService.setShowContent(true);  
     this.courseService.setContent(this.pdf?? '')
     this.router.navigate(['layout/create/create-new-section'])
@@ -176,6 +207,8 @@ export class AddLectureComponent {
     this.router.navigate(['layout/create/import-notes']);
   }
   onAddlecture(){
+    
     this.router.navigate(['layout/create/create-new-section'])
   }
+
 }
